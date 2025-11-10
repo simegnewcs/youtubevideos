@@ -1,0 +1,4583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DevVoltz Academy | HTML Tables</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    /* ===== ADVANCED CSS RESET & VARIABLES ===== */
+:root {
+  --primary: #6366f1;
+  --primary-dark: #4f46e5;
+  --primary-light: #818cf8;
+  --secondary: #f59e0b;
+  --secondary-dark: #d97706;
+  --accent: #10b981;
+  --accent-dark: #059669;
+  --danger: #ef4444;
+  --warning: #f59e0b;
+  --success: #10b981;
+  
+  --dark-1: #0f172a;
+  --dark-2: #1e293b;
+  --dark-3: #334155;
+  --light-1: #f8fafc;
+  --light-2: #e2e8f0;
+  --light-3: #cbd5e1;
+  
+  --gradient-primary: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  --gradient-secondary: linear-gradient(135deg, #f59e0b 0%, #f97316 100%);
+  --gradient-accent: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+  --gradient-dark: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  --gradient-hero: linear-gradient(135deg, #0f172a 0%, #334155 50%, #1e293b 100%);
+  
+  --shadow-sm: 0 2px 4px rgba(0,0,0,0.1);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.15);
+  --shadow-lg: 0 10px 25px -5px rgba(0,0,0,0.2);
+  --shadow-xl: 0 25px 50px -12px rgba(0,0,0,0.25);
+  --shadow-glow: 0 0 30px rgba(99, 102, 241, 0.3);
+  
+  --border-radius-sm: 8px;
+  --border-radius-md: 12px;
+  --border-radius-lg: 16px;
+  --border-radius-xl: 24px;
+  
+  --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  --font-primary: 'Outfit', 'Inter', system-ui, sans-serif;
+  --font-mono: 'Fira Code', 'Courier New', monospace;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-primary);
+  background: var(--dark-1);
+  color: var(--light-1);
+  overflow-x: hidden;
+  line-height: 1.6;
+  position: relative;
+}
+
+/* ===== SLIDE SYSTEM - FIXED POSITIONING ===== */
+.slide {
+  min-height: 100vh;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: none;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all var(--transition-slow);
+  overflow-y: auto;
+}
+
+.slide.active {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.slide-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  overflow: hidden;
+}
+
+/* Background patterns for different slides */
+.bg-pattern {
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(99, 102, 241, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(245, 158, 11, 0.05) 0%, transparent 50%);
+}
+
+.bg-grid {
+  background-image: 
+    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+
+.bg-code {
+  background: 
+    linear-gradient(45deg, var(--dark-2) 25%, transparent 25%),
+    linear-gradient(-45deg, var(--dark-2) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, var(--dark-2) 75%),
+    linear-gradient(-45deg, transparent 75%, var(--dark-2) 75%);
+  background-size: 20px 20px;
+  background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+  opacity: 0.1;
+}
+
+.bg-features {
+  background: 
+    radial-gradient(circle at 30% 30%, rgba(99, 102, 241, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 70% 70%, rgba(16, 185, 129, 0.1) 0%, transparent 50%);
+}
+
+.bg-quiz {
+  background: 
+    linear-gradient(135deg, transparent 0%, rgba(99, 102, 241, 0.05) 100%);
+}
+
+.bg-final {
+  background: 
+    radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.1) 0%, transparent 70%),
+    radial-gradient(circle at 80% 20%, rgba(99, 102, 241, 0.1) 0%, transparent 50%);
+}
+
+/* ===== CINEMATIC INTRO SLIDE ===== */
+.intro-slide {
+  background: var(--gradient-hero);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+}
+
+.cinematic-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(99, 102, 241, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(245, 158, 11, 0.1) 0%, transparent 50%);
+  animation: float 6s ease-in-out infinite;
+}
+
+.particles-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  background: var(--primary);
+  border-radius: 50%;
+  animation: float-particle 20s linear infinite;
+}
+
+@keyframes float-particle {
+  0% {
+    transform: translateY(100vh) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.intro-content {
+  position: relative;
+  z-index: 2;
+  max-width: 1200px;
+  padding: 2rem;
+  margin: 0 auto;
+}
+
+.logo-reveal {
+  margin-bottom: 3rem;
+  position: relative;
+}
+
+.logo-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 200px;
+  height: 200px;
+  background: var(--gradient-primary);
+  border-radius: 50%;
+  filter: blur(40px);
+  opacity: 0.5;
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.3; transform: translate(-50%, -50%) scale(1); }
+  50% { opacity: 0.6; transform: translate(-50%, -50%) scale(1.1); }
+}
+
+.cinematic-logo {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid rgba(255,255,255,0.1);
+  box-shadow: var(--shadow-glow);
+  animation: logo-enter 3.5s ease-out;
+}
+
+@keyframes logo-enter {
+  0% {
+    opacity: 0;
+    transform: scale(0.5) rotate(-180deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+.title-sequence {
+  margin-bottom: 3rem;
+}
+
+.main-title {
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-weight: 800;
+  margin-bottom: 1rem;
+  line-height: 1.1;
+}
+
+.title-word {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: title-word 0.8s ease forwards;
+}
+
+.title-word:nth-child(1) { animation-delay: 0.5s; }
+.title-word:nth-child(2) { animation-delay: 1s; }
+.title-word:nth-child(3) { animation-delay: 1.5s; }
+
+@keyframes title-word {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.subtitle-reveal {
+  opacity: 0;
+  animation: subtitle-enter 1s ease 2s forwards;
+}
+
+@keyframes subtitle-enter {
+  to {
+    opacity: 1;
+  }
+}
+
+.course-subtitle {
+  font-size: 1.5rem;
+  color: var(--light-2);
+  margin-bottom: 1rem;
+}
+
+.title-underline {
+  width: 100px;
+  height: 4px;
+  background: var(--gradient-primary);
+  margin: 0 auto;
+  border-radius: 2px;
+  animation: underline-grow 1s ease 2.5s forwards;
+  transform: scaleX(0);
+  transform-origin: center;
+}
+
+@keyframes underline-grow {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.instructor-card {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  background: rgba(255,255,255,0.05);
+  padding: 1.5rem;
+  border-radius: var(--border-radius-lg);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.1);
+  margin-bottom: 3rem;
+  animation: card-enter 1s ease 3s forwards;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+@keyframes card-enter {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.instructor-avatar img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--primary);
+}
+
+.instructor-info h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.25rem;
+}
+
+.instructor-info p {
+  color: var(--light-3);
+  font-size: 0.9rem;
+}
+
+.start-pulse {
+  animation: pulse-cta 2s ease-in-out infinite;
+}
+
+.start-button {
+  background: var(--gradient-primary);
+  color: white;
+  border: none;
+  padding: 1.5rem 3rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  border-radius: 50px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: var(--transition-normal);
+  box-shadow: var(--shadow-glow);
+}
+
+.button-glow {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: var(--transition-normal);
+}
+
+.start-button:hover .button-glow {
+  left: 100%;
+}
+
+.start-button:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-xl);
+}
+
+@keyframes pulse-cta {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.scroll-indicator {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateX(-50%) translateY(0);
+  }
+  40% {
+    transform: translateX(-50%) translateY(-10px);
+  }
+  60% {
+    transform: translateX(-50%) translateY(-5px);
+  }
+}
+
+/* ===== CONTENT SLIDES - FIXED POSITIONING ===== */
+.slide-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 6rem 2rem 2rem;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 1;
+}
+
+.slide-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.chapter-badge {
+  display: inline-block;
+  background: var(--gradient-primary);
+  color: white;
+  padding: 0.5rem 1.5rem;
+  border-radius: 50px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.slide-title {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, var(--light-1) 0%, var(--light-2) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.slide-subtitle {
+  font-size: 1.25rem;
+  color: var(--light-3);
+}
+
+/* ===== CONCEPT CARDS ===== */
+.concept-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+}
+
+.concept-card {
+  background: rgba(255,255,255,0.05);
+  border-radius: var(--border-radius-lg);
+  border: 1px solid rgba(255,255,255,0.1);
+  overflow: hidden;
+  transition: var(--transition-normal);
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.concept-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.concept-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--primary);
+  box-shadow: var(--shadow-glow);
+}
+
+.card-header {
+  padding: 1.5rem;
+  background: rgba(255,255,255,0.02);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.card-icon {
+  font-size: 1.5rem;
+  width: 50px;
+  height: 50px;
+  background: var(--gradient-primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  color: white;
+}
+
+.card-header h3 {
+  font-size: 1.25rem;
+  color: var(--light-1);
+}
+
+.card-content {
+  padding: 1.5rem;
+}
+
+.card-content ul {
+  list-style: none;
+  margin-top: 1rem;
+}
+
+.card-content li {
+  padding: 0.5rem 0;
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.card-content li:before {
+  content: "•";
+  color: var(--primary);
+  position: absolute;
+  left: 0;
+  font-weight: bold;
+}
+
+/* ===== SLIDE 3: HTML CHARACTERISTICS ===== */
+.comparison-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  margin-top: 2rem;
+}
+
+.advantages-section, .disadvantages-section {
+  background: rgba(255,255,255,0.05);
+  border-radius: var(--border-radius-lg);
+  padding: 2rem;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.advantages-section {
+  border-left: 4px solid var(--success);
+}
+
+.disadvantages-section {
+  border-left: 4px solid var(--danger);
+}
+
+.section-title {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.features-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.feature-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: rgba(255,255,255,0.02);
+  border-radius: var(--border-radius-md);
+  border: 1px solid rgba(255,255,255,0.05);
+  transition: var(--transition-normal);
+}
+
+.feature-item:hover {
+  transform: translateX(10px);
+  border-color: rgba(255,255,255,0.1);
+}
+
+.feature-text h4 {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+  color: var(--light-1);
+}
+
+.feature-text p {
+  color: var(--light-3);
+  font-size: 0.95rem;
+}
+
+/* ===== SLIDE 4: HTML EDITORS ===== */
+.editors-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.editor-card {
+  background: rgba(255,255,255,0.05);
+  border-radius: var(--border-radius-lg);
+  padding: 2rem;
+  text-align: center;
+  border: 1px solid rgba(255,255,255,0.1);
+  transition: var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+}
+
+.editor-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--primary);
+  box-shadow: var(--shadow-glow);
+}
+
+.editor-card.featured {
+  border-color: var(--primary);
+  box-shadow: var(--shadow-glow);
+}
+
+.editor-card.featured:before {
+  content: "Recommended";
+  position: absolute;
+  top: 10px;
+  right: -30px;
+  background: var(--gradient-primary);
+  color: white;
+  padding: 0.25rem 2rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  transform: rotate(45deg);
+}
+
+.editor-icon {
+  width: 80px;
+  height: 80px;
+  background: var(--gradient-primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: white;
+}
+
+.editor-card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--light-1);
+}
+
+.editor-card p {
+  color: var(--light-3);
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+}
+
+.editor-tags {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.tag {
+  background: rgba(255,255,255,0.1);
+  color: var(--light-2);
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.file-extension-note {
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  border-radius: var(--border-radius-md);
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.note-icon {
+  width: 40px;
+  height: 40px;
+  background: var(--gradient-accent);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  color: white;
+  flex-shrink: 0;
+}
+
+.file-extension-note p {
+  margin: 0;
+  color: var(--light-2);
+}
+
+.file-extension-note code {
+  background: rgba(255,255,255,0.1);
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  color: var(--accent);
+}
+
+/* ===== SLIDE 5: HTML WITH CSS & JS ===== */
+.web-trio {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.tech-card {
+  background: rgba(255,255,255,0.05);
+  border-radius: var(--border-radius-lg);
+  padding: 2rem;
+  text-align: center;
+  border: 1px solid rgba(255,255,255,0.1);
+  transition: var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+}
+
+.tech-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-glow);
+}
+
+.html-card:hover {
+  border-color: var(--primary);
+}
+
+.css-card:hover {
+  border-color: var(--secondary);
+}
+
+.js-card:hover {
+  border-color: var(--warning);
+}
+
+.tech-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: white;
+}
+
+.html-card .tech-icon {
+  background: var(--gradient-primary);
+}
+
+.css-card .tech-icon {
+  background: var(--gradient-secondary);
+}
+
+.js-card .tech-icon {
+  background: var(--gradient-accent);
+}
+
+.tech-card h3 {
+  font-size: 1.75rem;
+  margin-bottom: 0.5rem;
+  color: var(--light-1);
+}
+
+.tech-role {
+  font-size: 1rem;
+  color: var(--light-3);
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.tech-card p {
+  color: var(--light-2);
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+}
+
+.tech-card ul {
+  list-style: none;
+  text-align: left;
+}
+
+.tech-card li {
+  padding: 0.5rem 0;
+  color: var(--light-3);
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.tech-card li:before {
+  content: "▸";
+  color: var(--primary);
+  position: absolute;
+  left: 0;
+  font-weight: bold;
+}
+
+.integration-example {
+  background: rgba(255,255,255,0.05);
+  border-radius: var(--border-radius-lg);
+  padding: 2rem;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.integration-example h4 {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+  color: var(--light-1);
+}
+
+.code-example {
+  background: var(--dark-2);
+  border-radius: var(--border-radius-md);
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.code-example pre {
+  margin: 0;
+  padding: 1.5rem;
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.code-example code {
+  color: #e2e8f0;
+}
+
+/* ===== SLIDE 6: FIRST HTML FILE ===== */
+.demo-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  flex: 1;
+}
+
+.code-editor, .demo-preview {
+  background: var(--dark-2);
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.editor-header, .preview-header {
+  background: var(--dark-3);
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.editor-dots, .browser-dots {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.editor-dots span, .browser-dots span {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.editor-dots span:nth-child(1) { background: #ef4444; }
+.editor-dots span:nth-child(2) { background: #f59e0b; }
+.editor-dots span:nth-child(3) { background: #10b981; }
+
+.browser-dots span:nth-child(1) { background: #ef4444; }
+.browser-dots span:nth-child(2) { background: #f59e0b; }
+.browser-dots span:nth-child(3) { background: #10b981; }
+
+.editor-title, .preview-url {
+  color: var(--light-2);
+  font-size: 0.9rem;
+}
+
+.editor-content, .preview-content {
+  padding: 1.5rem;
+  height: 300px;
+  overflow: auto;
+}
+
+.editor-content pre {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.preview-content {
+  background: white;
+  color: var(--dark-1);
+  font-family: system-ui, sans-serif;
+}
+
+.preview-content h1 {
+  color: #1e293b;
+  margin-bottom: 1rem;
+}
+
+.preview-content p {
+  color: #475569;
+  margin-bottom: 0.5rem;
+}
+
+.creation-steps {
+  background: rgba(255,255,255,0.05);
+  border-radius: var(--border-radius-lg);
+  padding: 2rem;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.creation-steps h3 {
+  font-size: 1.25rem;
+  margin-bottom: 1.5rem;
+  color: var(--light-1);
+}
+
+.steps-list {
+  list-style: none;
+  counter-reset: step-counter;
+}
+
+.steps-list li {
+  counter-increment: step-counter;
+  padding: 1rem 0 1rem 3rem;
+  position: relative;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.steps-list li:last-child {
+  border-bottom: none;
+}
+
+.steps-list li:before {
+  content: counter(step-counter);
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2rem;
+  height: 2rem;
+  background: var(--gradient-primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  color: white;
+  font-size: 0.9rem;
+}
+
+.steps-list code {
+  background: rgba(255,255,255,0.1);
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  color: var(--primary-light);
+}
+
+/* ===== SLIDE 7: HTML TAGS & ELEMENTS ===== */
+.tags-elements-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+}
+
+.tags-section, .elements-section, .attributes-section {
+  background: rgba(255,255,255,0.05);
+  border-radius: var(--border-radius-lg);
+  padding: 2rem;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.tags-section h3, .elements-section h3, .attributes-section h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: var(--light-1);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  padding-bottom: 0.5rem;
+}
+
+.concept-explanation {
+  margin-bottom: 2rem;
+}
+
+.concept-explanation p {
+  margin-bottom: 1rem;
+  color: var(--light-2);
+}
+
+.concept-explanation ul {
+  list-style: none;
+  margin-top: 1rem;
+}
+
+.concept-explanation li {
+  padding: 0.5rem 0;
+  position: relative;
+  padding-left: 1.5rem;
+  color: var(--light-3);
+}
+
+.concept-explanation li:before {
+  content: "•";
+  color: var(--primary);
+  position: absolute;
+  left: 0;
+  font-weight: bold;
+}
+
+.concept-explanation code {
+  background: rgba(255,255,255,0.1);
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  color: var(--primary-light);
+}
+
+.tag-examples, .empty-elements {
+  margin-top: 1.5rem;
+}
+
+.tag-examples h4, .empty-elements p {
+  margin-bottom: 1rem;
+  color: var(--light-2);
+}
+
+.tags-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tag-example {
+  background: rgba(99, 102, 241, 0.1);
+  color: var(--primary-light);
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius-sm);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  transition: var(--transition-fast);
+}
+
+.tag-example:hover {
+  background: rgba(99, 102, 241, 0.2);
+  transform: translateY(-2px);
+}
+
+.empty-elements {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.empty-tag {
+  background: rgba(16, 185, 129, 0.1);
+  color: var(--accent);
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius-sm);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  transition: var(--transition-fast);
+}
+
+.empty-tag:hover {
+  background: rgba(16, 185, 129, 0.2);
+  transform: translateY(-2px);
+}
+
+.attribute-example {
+  background: var(--dark-2);
+  border-radius: var(--border-radius-md);
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.1);
+  margin-top: 1rem;
+}
+
+.attribute-example h4 {
+  background: var(--dark-3);
+  padding: 1rem;
+  margin: 0;
+  font-size: 1rem;
+  color: var(--light-2);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.attribute-example pre {
+  margin: 0;
+  padding: 1.5rem;
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.attribute-example code {
+  color: #e2e8f0;
+}
+
+/* ===== SLIDE 8: RECAP & NEXT STEPS ===== */
+.completion-animation {
+  text-align: center;
+  margin-bottom: 3rem;
+  position: relative;
+}
+
+.confetti-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.confetti {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: var(--primary);
+  animation: confetti-fall 5s linear forwards;
+}
+
+@keyframes confetti-fall {
+  0% {
+    transform: translateY(-100px) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.trophy {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  animation: bounce-trophy 2s ease-in-out infinite;
+  width: 120px;
+  height: 120px;
+  background: var(--gradient-primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 2rem;
+  color: white;
+  font-weight: 700;
+}
+
+@keyframes bounce-trophy {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-20px) scale(1.1);
+  }
+}
+
+.completion-title {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.completion-subtitle {
+  font-size: 1.5rem;
+  color: var(--light-3);
+}
+
+.recap-section {
+  margin-bottom: 3rem;
+}
+
+.recap-section h3 {
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 1.5rem;
+  color: var(--light-1);
+}
+
+.recap-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.recap-item {
+  background: rgba(255,255,255,0.05);
+  border-radius: var(--border-radius-lg);
+  padding: 2rem;
+  text-align: center;
+  border: 1px solid rgba(255,255,255,0.1);
+  transition: var(--transition-normal);
+}
+
+.recap-item:hover {
+  transform: translateY(-5px);
+  border-color: var(--primary);
+  box-shadow: var(--shadow-glow);
+}
+
+.recap-icon {
+  width: 60px;
+  height: 60px;
+  background: var(--gradient-primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+  font-weight: 700;
+  color: white;
+  font-size: 0.9rem;
+}
+
+.recap-item h4 {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+  color: var(--light-1);
+}
+
+.recap-item p {
+  color: var(--light-3);
+  font-size: 0.9rem;
+}
+
+.practice-section {
+  margin-bottom: 3rem;
+}
+
+.practice-section h3 {
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 1.5rem;
+  color: var(--light-1);
+}
+
+.exercise-card {
+  background: rgba(255,255,255,0.05);
+  border-radius: var(--border-radius-lg);
+  padding: 2rem;
+  border: 1px solid rgba(255,255,255,0.1);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.exercise-card h4 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--light-1);
+  text-align: center;
+}
+
+.exercise-card p {
+  color: var(--light-2);
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.exercise-card ul {
+  list-style: none;
+  margin-bottom: 2rem;
+}
+
+.exercise-card li {
+  padding: 0.5rem 0;
+  color: var(--light-3);
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.exercise-card li:before {
+  content: "▸";
+  color: var(--primary);
+  position: absolute;
+  left: 0;
+  font-weight: bold;
+}
+
+.exercise-btn {
+  background: var(--gradient-primary);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: var(--border-radius-md);
+  cursor: pointer;
+  font-weight: 600;
+  transition: var(--transition-normal);
+  display: block;
+  margin: 0 auto;
+  width: 200px;
+}
+
+.exercise-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.cta-section {
+  text-align: center;
+}
+
+.cta-button {
+  background: var(--gradient-primary);
+  color: white;
+  border: none;
+  padding: 1.5rem 3rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  border-radius: 50px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  transition: var(--transition-normal);
+  box-shadow: var(--shadow-glow);
+}
+
+.cta-button:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-xl);
+}
+
+.cta-note {
+  color: var(--light-3);
+  font-size: 0.9rem;
+}
+
+/* ===== PRESENTATION CONTROLS ===== */
+.presentation-controls {
+  position: fixed;
+  top: 2rem;
+  right: 2rem;
+  z-index: 1000;
+  display: flex;
+  gap: 1rem;
+}
+
+.control-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(10px);
+  padding: 0.5rem;
+  border-radius: var(--border-radius-md);
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+.control-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--border-radius-sm);
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: var(--light-1);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition-fast);
+}
+
+.control-btn:hover {
+  background: var(--primary);
+  transform: translateY(-2px);
+}
+
+.control-btn.active {
+  background: var(--primary);
+  box-shadow: var(--shadow-glow);
+}
+
+.slide-counter {
+  color: var(--light-1);
+  font-weight: 600;
+  font-size: 0.9rem;
+  min-width: 50px;
+  text-align: center;
+}
+
+/* ===== BRANDED LASER POINTER ===== */
+.laser-pointer {
+  position: fixed;
+  width: 30px;
+  height: 30px;
+  pointer-events: none;
+  z-index: 10000;
+  opacity: 0;
+  transition: opacity 0.2s;
+  filter: drop-shadow(0 0 10px rgba(99, 102, 241, 0.8));
+}
+
+.laser-pointer.active {
+  opacity: 1;
+}
+
+.laser-pointer.logo-pointer {
+  background: transparent;
+  box-shadow: none;
+}
+
+.laser-pointer img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 50%;
+  animation: logo-pulse 2s ease-in-out infinite;
+}
+
+@keyframes logo-pulse {
+  0%, 100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 10px rgba(99, 102, 241, 0.8));
+  }
+  50% {
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 20px rgba(99, 102, 241, 1));
+  }
+}
+
+.laser-trail {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: var(--primary);
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0.6;
+  animation: trail-fade 1s ease-out forwards;
+}
+
+@keyframes trail-fade {
+  to {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+}
+
+/* ===== RECORDING INDICATOR ===== */
+.recording-indicator {
+  position: fixed;
+  top: 2rem;
+  left: 2rem;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(239, 68, 68, 0.2);
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  border: 1px solid rgba(239, 68, 68, 0.5);
+  color: var(--danger);
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.recording-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--danger);
+  border-radius: 50%;
+  animation: recording-pulse 1s ease-in-out infinite;
+}
+
+@keyframes recording-pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.2);
+  }
+}
+
+/* ===== PROGRESS INDICATOR ===== */
+.progress-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: rgba(255,255,255,0.1);
+  z-index: 1001;
+}
+
+.progress-bar {
+  height: 100%;
+  background: var(--gradient-primary);
+  width: 0%;
+  transition: width 0.3s ease;
+}
+
+/* ===== SLIDE INDICATOR ===== */
+.slide-indicator {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(10px);
+  padding: 1rem;
+  border-radius: var(--border-radius-md);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: var(--light-1);
+  font-weight: 600;
+}
+
+.slide-progress {
+  width: 100px;
+  height: 4px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.slide-progress-bar {
+  height: 100%;
+  background: var(--gradient-primary);
+  width: 12.5%;
+  transition: width 0.3s ease;
+}
+
+/* ===== PRESENTER NOTES ===== */
+.presenter-notes {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(10px);
+  border-top: 1px solid rgba(255,255,255,0.1);
+  z-index: 900;
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
+}
+
+.presenter-notes.show {
+  transform: translateY(0);
+}
+
+.notes-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.notes-header h4 {
+  color: var(--light-1);
+}
+
+.notes-toggle {
+  background: none;
+  border: none;
+  color: var(--light-2);
+  cursor: pointer;
+  padding: 0.5rem;
+  transition: var(--transition-fast);
+}
+
+.notes-toggle:hover {
+  color: var(--light-1);
+}
+
+.notes-content {
+  padding: 2rem;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.note {
+  display: none;
+  padding: 1rem;
+  background: rgba(255,255,255,0.05);
+  border-radius: var(--border-radius-md);
+  border-left: 4px solid var(--primary);
+}
+
+.note.active {
+  display: block;
+  animation: slideUp 0.3s ease;
+}
+
+/* ===== SOCIAL TICKER ===== */
+.social-ticker {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: var(--gradient-primary);
+  color: white;
+  padding: 1rem 0;
+  overflow: hidden;
+  z-index: 800;
+}
+
+.ticker-content {
+  display: flex;
+  animation: ticker-scroll 30s linear infinite;
+  white-space: nowrap;
+}
+
+.ticker-item {
+  padding: 0 2rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+@keyframes ticker-scroll {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 768px) {
+  .slide-content {
+    padding: 4rem 1rem 1rem;
+  }
+
+  .presentation-controls {
+    top: 1rem;
+    right: 1rem;
+    flex-direction: column;
+  }
+
+  .demo-container {
+    grid-template-columns: 1fr;
+  }
+
+  .concept-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .comparison-container {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .editors-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .web-trio {
+    grid-template-columns: 1fr;
+  }
+
+  .recap-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .slide-indicator {
+    bottom: 1rem;
+    right: 1rem;
+  }
+
+  .recording-indicator {
+    top: 1rem;
+    left: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .intro-content {
+    padding: 1rem;
+  }
+
+  .instructor-card {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .feature-item {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+/* ===== UTILITY CLASSES ===== */
+.visible {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.mb-1 { margin-bottom: 1rem; }
+.mb-2 { margin-bottom: 2rem; }
+.mb-3 { margin-bottom: 3rem; }
+
+.mt-1 { margin-top: 1rem; }
+.mt-2 { margin-top: 2rem; }
+.mt-3 { margin-top: 3rem; }
+/* ===== VIDEO 2 SPECIFIC STYLES ===== */
+
+/* Element Anatomy Visualization */
+.anatomy-card {
+  background: rgba(255,255,255,0.05);
+  border-radius: var(--border-radius-lg);
+  padding: 2rem;
+  border: 1px solid rgba(255,255,255,0.1);
+  margin-bottom: 2rem;
+}
+
+.anatomy-visual {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.anatomy-part {
+  padding: 1.5rem;
+  border-radius: var(--border-radius-md);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  transition: var(--transition-normal);
+}
+
+.anatomy-part:hover {
+  transform: translateX(10px);
+}
+
+.start-tag {
+  background: rgba(99, 102, 241, 0.1);
+  border: 1px solid rgba(99, 102, 241, 0.3);
+}
+
+.content {
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  margin-left: 2rem;
+}
+
+.end-tag {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.part-label {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--light-2);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.anatomy-note {
+  text-align: center;
+  color: var(--light-3);
+  font-style: italic;
+  margin-top: 1rem;
+}
+
+/* Element Types */
+.element-types {
+  margin-top: 3rem;
+}
+
+.types-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-top: 1.5rem;
+}
+
+.type-card {
+  background: rgba(255,255,255,0.05);
+  border-radius: var(--border-radius-lg);
+  padding: 1.5rem;
+  border: 1px solid rgba(255,255,255,0.1);
+  transition: var(--transition-normal);
+}
+
+.type-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--primary);
+}
+
+.type-card h4 {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+  color: var(--light-1);
+}
+
+.type-card p {
+  color: var(--light-3);
+  margin-bottom: 1.5rem;
+  font-size: 0.95rem;
+}
+
+.type-examples {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.type-examples code {
+  background: rgba(255,255,255,0.1);
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--border-radius-sm);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--primary-light);
+}
+
+/* Self-Closing Tags */
+.self-closing-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+}
+
+.syntax-comparison {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin: 2rem 0;
+}
+
+.syntax-item {
+  background: rgba(255,255,255,0.05);
+  border-radius: var(--border-radius-lg);
+  padding: 1.5rem;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.syntax-item h4 {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  color: var(--light-1);
+  text-align: center;
+}
+
+.syntax-item p {
+  color: var(--light-3);
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+}
+
+.void-elements-grid {
+  margin-top: 2rem;
+}
+
+.void-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.void-card {
+  background: rgba(255,255,255,0.05);
+  border-radius: var(--border-radius-md);
+  padding: 1.5rem;
+  text-align: center;
+  border: 1px solid rgba(255,255,255,0.1);
+  transition: var(--transition-normal);
+}
+
+.void-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--primary);
+}
+
+.void-icon {
+  width: 50px;
+  height: 50px;
+  background: var(--gradient-primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+  font-weight: 700;
+  color: white;
+  font-size: 0.9rem;
+}
+
+.void-card h4 {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+  color: var(--light-1);
+}
+
+.void-card p {
+  color: var(--light-3);
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.void-card code {
+  background: rgba(255,255,255,0.1);
+  padding: 0.5rem;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--primary-light);
+}
+
+/* Attributes */
+.attributes-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+}
+
+.attributes-intro {
+  background: rgba(255,255,255,0.05);
+  border-radius: var(--border-radius-lg);
+  padding: 2rem;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.attribute-syntax {
+  margin-top: 2rem;
+}
+
+.attribute-syntax ul {
+  list-style: none;
+  margin-top: 1rem;
+}
+
+.attribute-syntax li {
+  padding: 0.5rem 0;
+  position: relative;
+  padding-left: 1.5rem;
+  color: var(--light-3);
+}
+
+.attribute-syntax li:before {
+  content: "•";
+  color: var(--primary);
+  position: absolute;
+  left: 0;
+  font-weight: bold;
+}
+
+.common-attributes {
+  margin-top: 2rem;
+}
+
+.attributes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.attribute-item {
+  background: rgba(255,255,255,0.05);
+  border-radius: var(--border-radius-md);
+  padding: 1.5rem;
+  border: 1px solid rgba(255,255,255,0.1);
+  transition: var(--transition-normal);
+}
+
+.attribute-item:hover {
+  transform: translateY(-3px);
+  border-color: var(--primary);
+}
+
+.attribute-item h4 {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+  color: var(--light-1);
+}
+
+.attribute-item p {
+  color: var(--light-3);
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.attribute-item code {
+  background: rgba(255,255,255,0.1);
+  padding: 0.5rem;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--primary-light);
+  display: block;
+  text-align: center;
+}
+
+/* Demo Explanation */
+.demo-explanation {
+  margin-top: 2rem;
+}
+
+.concepts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.concept-point {
+  background: rgba(255,255,255,0.05);
+  border-radius: var(--border-radius-md);
+  padding: 1.5rem;
+  text-align: center;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.concept-point h4 {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+  color: var(--light-1);
+}
+
+.concept-point p {
+  color: var(--light-3);
+  font-size: 0.9rem;
+}
+
+/* Code Demonstration */
+.code-demonstration {
+  margin-top: 2rem;
+  background: rgba(255,255,255,0.05);
+  border-radius: var(--border-radius-lg);
+  padding: 2rem;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.code-demonstration h3 {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+  color: var(--light-1);
+  text-align: center;
+}
+
+/* Responsive Design for Video 2 */
+@media (max-width: 768px) {
+  .syntax-comparison {
+    grid-template-columns: 1fr;
+  }
+  
+  .anatomy-visual {
+    gap: 0.5rem;
+  }
+  
+  .content {
+    margin-left: 1rem;
+  }
+  
+  .types-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .void-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .attributes-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .concepts-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .void-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .anatomy-part {
+    padding: 1rem;
+  }
+}
+    /* Tables-specific styles */
+    .tables-overview {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin: 2rem 0;
+    }
+    
+    .table-concept-card {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 2rem;
+      border-radius: 12px;
+      border-left: 4px solid #4a90e2;
+    }
+    
+    .concept-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .concept-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 10px;
+      background: #4a90e2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+    
+    .code-example {
+      background: rgba(0, 0, 0, 0.2);
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin: 1rem 0;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+    
+    .live-preview {
+      background: white;
+      color: #333;
+      padding: 1.5rem;
+      border-radius: 6px;
+      margin-top: 1rem;
+      overflow-x: auto;
+    }
+    
+    .demo-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+    }
+    
+    .demo-table th,
+    .demo-table td {
+      border: 1px solid #ddd;
+      padding: 0.5rem;
+      text-align: left;
+    }
+    
+    .demo-table th {
+      background: #f8f9fa;
+      font-weight: bold;
+    }
+    
+    .attributes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+    
+    .attribute-card {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 1.5rem;
+      border-radius: 12px;
+      text-align: center;
+    }
+    
+    .attribute-icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: #4a90e2;
+    }
+    
+    .attribute-preview {
+      background: white;
+      padding: 1rem;
+      border-radius: 4px;
+      margin-top: 1rem;
+      overflow-x: auto;
+    }
+    
+    .interactive-demo {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin: 2rem 0;
+    }
+    
+    .demo-editor, .demo-preview {
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .demo-header {
+      background: #2c3e50;
+      color: white;
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .demo-title {
+      font-weight: 600;
+    }
+    
+    .demo-actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+    
+    .demo-action {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+    
+    .demo-action.red { background: #ff5f57; }
+    .demo-action.yellow { background: #ffbd2e; }
+    .demo-action.green { background: #28ca42; }
+    
+    .editor-content {
+      background: #1a1a1a;
+      color: #f8f8f2;
+      padding: 1.5rem;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      height: 400px;
+      overflow-y: auto;
+    }
+    
+    .preview-content {
+      background: white;
+      padding: 1.5rem;
+      height: 400px;
+      overflow-y: auto;
+      color: #333;
+    }
+    
+    .control-panel {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin: 1.5rem 0;
+      padding: 1.5rem;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+    }
+    
+    .control-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    
+    .control-label {
+      font-weight: 600;
+      color: #4a90e2;
+    }
+    
+    .control-input {
+      padding: 0.5rem;
+      border: 1px solid #4a90e2;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+    }
+    
+    .control-btn {
+      padding: 0.75rem 1rem;
+      background: #4a90e2;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    
+    .control-btn:hover {
+      background: #3a7bc8;
+    }
+    
+    .table-examples {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin: 2rem 0;
+    }
+    
+    .example-card {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 2rem;
+      border-radius: 12px;
+    }
+    
+    .pricing-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+    }
+    
+    .pricing-table th,
+    .pricing-table td {
+      border: 1px solid #ddd;
+      padding: 1rem;
+      text-align: center;
+    }
+    
+    .pricing-table th {
+      background: #4a90e2;
+      color: white;
+      font-size: 1.2rem;
+    }
+    
+    .pricing-table .price {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #4a90e2;
+    }
+    
+    .timetable {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+    }
+    
+    .timetable th,
+    .timetable td {
+      border: 1px solid #ddd;
+      padding: 0.75rem;
+      text-align: center;
+    }
+    
+    .timetable th {
+      background: #67b26f;
+      color: white;
+    }
+    
+    .timetable .time-slot {
+      background: #f8f9fa;
+      font-weight: bold;
+    }
+    
+    .best-practices {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+    
+    .practice-card {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 1.5rem;
+      border-radius: 12px;
+      text-align: center;
+    }
+    
+    .practice-icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: #4a90e2;
+    }
+    
+    .table-styling {
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      margin: 2rem 0;
+    }
+    
+    .styled-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    .styled-table th,
+    .styled-table td {
+      border: 1px solid #e1e1e1;
+      padding: 0.75rem;
+      text-align: left;
+    }
+    
+    .styled-table th {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      font-weight: 600;
+    }
+    
+    .styled-table tr:nth-child(even) {
+      background: #f8f9fa;
+    }
+    
+    .styled-table tr:hover {
+      background: #e3f2fd;
+    }
+    
+    @media (max-width: 768px) {
+      .interactive-demo {
+        grid-template-columns: 1fr;
+      }
+      
+      .control-panel {
+        grid-template-columns: 1fr;
+      }
+      
+      .live-preview {
+        overflow-x: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Presentation Controls -->
+  <div class="presentation-controls">
+   <div class="control-group">
+      <button class="control-btn" id="slidePrev" title="Previous Slide (←)">
+        <i class="fas fa-chevron-left"></i>
+      </button>
+      <span class="slide-counter" id="slideCounter">1/8</span>
+      <button class="control-btn" id="slideNext" title="Next Slide (→)">
+        <i class="fas fa-chevron-right"></i>
+      </button>
+    </div>
+    <div class="control-group">
+      <button class="control-btn" id="toggleFullscreen" title="Fullscreen (F)">
+        <i class="fas fa-expand"></i>
+      </button>
+      <button class="control-btn" id="toggleLaser" title="Laser Pointer (L)">
+        <i class="fas fa-bullseye"></i>
+      </button>
+      <button class="control-btn" id="toggleTheme" title="Toggle Theme (T)">
+        <i class="fas fa-moon"></i>
+      </button>
+      <button class="control-btn" id="toggleGrid" title="Toggle Grid (G)">
+        <i class="fas fa-th"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Laser Pointer -->
+  <div class="laser-pointer" id="laserPointer"></div>
+
+  <!-- Recording Indicator -->
+  <div class="recording-indicator" id="recordingIndicator">
+    <div class="recording-dot"></div>
+    <span>REC</span>
+  </div>
+
+  <!-- Progress Indicator -->
+  <div class="progress-container">
+    <div class="progress-bar" id="progressBar"></div>
+  </div>
+
+  <!-- Slide Counter -->
+  <div class="slide-indicator">
+    <span id="currentSlide">1</span>
+    <div class="slide-progress">
+      <div class="slide-progress-bar"></div>
+    </div>
+    <span id="totalSlides">8</span>
+  </div>
+
+  <!-- ===== CINEMATIC INTRO ===== -->
+  <section class="slide intro-slide active" data-slide="1">
+    <div class="cinematic-overlay"></div>
+    <div class="particles-container" id="particles"></div>
+    
+    <div class="intro-content">
+      <div class="logo-reveal">
+        <div class="logo-glow"></div>
+        <img src="logodev2.jpg" alt="DevVoltz Academy" class="cinematic-logo">
+      </div>
+      
+      <div class="title-sequence">
+        <h1 class="main-title">
+          <span class="title-word">HTML Tables</span>
+          <span class="title-word">Data Organization</span>
+          <span class="title-word">Structured Content</span>
+        </h1>
+        <div class="subtitle-reveal">
+          <p class="course-subtitle">Part 10: Mastering Table Structure & Layout</p>
+          <div class="title-underline"></div>
+        </div>
+      </div>
+
+      <div class="instructor-card">
+        <div class="instructor-avatar">
+          <img src="logodev1.jpg" alt="Instructor">
+        </div>
+        <div class="instructor-info">
+          <h3>Simegnew Destew</h3>
+          <p>Senior Full-Stack Developer</p>
+        </div>
+      </div>
+
+      <div class="start-pulse">
+        <button class="start-button" id="startCourse">
+          <span>Start Learning</span>
+          <div class="button-glow"></div>
+        </button>
+      </div>
+    </div>
+
+    <div class="scroll-indicator">
+      <div class="mouse">
+        <div class="wheel"></div>
+      </div>
+      <div class="arrow"></div>
+    </div>
+  </section>
+
+  <!-- ===== TABLE BASICS ===== -->
+  <section class="slide content-slide" data-slide="2">
+    <div class="slide-background">
+      <div class="bg-pattern"></div>
+    </div>
+    
+    <div class="slide-content">
+      <div class="slide-header">
+        <div class="chapter-badge">Part 10: HTML Tables</div>
+        <h2 class="slide-title">Table Basics</h2>
+        <div class="slide-subtitle">Understanding Table Structure</div>
+      </div>
+
+      <div class="tables-overview">
+        <div class="table-concept-card">
+          <div class="concept-header">
+            <div class="concept-icon">📊</div>
+            <div>
+              <h3>What are HTML Tables?</h3>
+              <p>Structured data organization</p>
+            </div>
+          </div>
+          
+          <p>HTML tables allow you to arrange data into rows and columns. They're perfect for displaying structured information like schedules, pricing, and comparisons.</p>
+          
+          <div class="code-example">
+            &lt;!-- Basic table structure --&gt;<br>
+            &lt;table&gt;<br>
+            &nbsp;&nbsp;&lt;tr&gt;<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&lt;th&gt;Header 1&lt;/th&gt;<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&lt;th&gt;Header 2&lt;/th&gt;<br>
+            &nbsp;&nbsp;&lt;/tr&gt;<br>
+            &nbsp;&nbsp;&lt;tr&gt;<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&lt;td&gt;Data 1&lt;/td&gt;<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&lt;td&gt;Data 2&lt;/td&gt;<br>
+            &nbsp;&nbsp;&lt;/tr&gt;<br>
+            &lt;/table&gt;
+          </div>
+        </div>
+
+        <div class="table-concept-card">
+          <div class="concept-header">
+            <div class="concept-icon">🏗️</div>
+            <div>
+              <h3>Table Elements</h3>
+              <p>Building blocks of tables</p>
+            </div>
+          </div>
+          
+          <div class="features-grid">
+            <div class="feature-item">
+              <div class="feature-text">
+                <h4>&lt;table&gt;</h4>
+                <p>Container for the entire table</p>
+              </div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-text">
+                <h4>&lt;tr&gt;</h4>
+                <p>Table row - horizontal container</p>
+              </div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-text">
+                <h4>&lt;th&gt;</h4>
+                <p>Table header - bold and centered</p>
+              </div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-text">
+                <h4>&lt;td&gt;</h4>
+                <p>Table data - regular cell content</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="live-preview">
+            <table class="demo-table">
+              <tr>
+                <th>Name</th>
+                <th>Age</th>
+                <th>City</th>
+              </tr>
+              <tr>
+                <td>John</td>
+                <td>25</td>
+                <td>New York</td>
+              </tr>
+              <tr>
+                <td>Sarah</td>
+                <td>30</td>
+                <td>London</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="table-syntax">
+        <h3>Table Structure Rules:</h3>
+        <div class="concept-explanation">
+          <ul>
+            <li><strong>&lt;table&gt;</strong> wraps the entire table structure</li>
+            <li><strong>&lt;tr&gt;</strong> defines each row (table row)</li>
+            <li><strong>&lt;th&gt;</strong> defines header cells (bold and centered by default)</li>
+            <li><strong>&lt;td&gt;</strong> defines regular data cells</li>
+            <li>Rows are built horizontally, cells vertically within rows</li>
+            <li>Always include proper headers for accessibility</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TABLE ATTRIBUTES ===== -->
+  <section class="slide content-slide" data-slide="3">
+    <div class="slide-background">
+      <div class="bg-grid"></div>
+    </div>
+
+    <div class="slide-content">
+      <div class="slide-header">
+        <div class="chapter-badge">Part 10: HTML Tables</div>
+        <h2 class="slide-title">Table Attributes</h2>
+        <div class="slide-subtitle">Controlling Table Layout & Appearance</div>
+      </div>
+
+      <div class="attributes-grid">
+        <div class="attribute-card">
+          <div class="attribute-icon">🔀</div>
+          <h3>colspan</h3>
+          <p>Merges cells horizontally</p>
+          
+          <div class="code-example">
+            &lt;td colspan="2"&gt;Merged Cells&lt;/td&gt;<br>
+            &lt;th colspan="3"&gt;Wide Header&lt;/th&gt;
+          </div>
+          
+          <div class="attribute-preview">
+            <table class="demo-table">
+              <tr>
+                <th colspan="2">Merged Header</th>
+              </tr>
+              <tr>
+                <td>Cell 1</td>
+                <td>Cell 2</td>
+              </tr>
+            </table>
+          </div>
+          
+          <div class="attribute-notes">
+            <h4>Usage:</h4>
+            <ul>
+              <li>Number specifies how many columns to span</li>
+              <li>Use in &lt;td&gt; or &lt;th&gt; elements</li>
+              <li>Great for section headers</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="attribute-card">
+          <div class="attribute-icon">⬇️</div>
+          <h3>rowspan</h3>
+          <p>Merges cells vertically</p>
+          
+          <div class="code-example">
+            &lt;td rowspan="2"&gt;Vertical Merge&lt;/td&gt;<br>
+            &lt;th rowspan="3"&gt;Tall Header&lt;/th&gt;
+          </div>
+          
+          <div class="attribute-preview">
+            <table class="demo-table">
+              <tr>
+                <th rowspan="2">Vertical Header</th>
+                <td>Data A</td>
+              </tr>
+              <tr>
+                <td>Data B</td>
+              </tr>
+            </table>
+          </div>
+          
+          <div class="attribute-notes">
+            <h4>Usage:</h4>
+            <ul>
+              <li>Number specifies how many rows to span</li>
+              <li>Use in &lt;td&gt; or &lt;th&gt; elements</li>
+              <li>Perfect for categories</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="attribute-card">
+          <div class="attribute-icon">🎨</div>
+          <h3>bgcolor</h3>
+          <p>Sets background color (deprecated)</p>
+          
+          <div class="code-example">
+            &lt;td bgcolor="yellow"&gt;Yellow Cell&lt;/td&gt;<br>
+            &lt;tr bgcolor="#f0f0f0"&gt;Gray Row&lt;/tr&gt;<br>
+            &lt;table bgcolor="lightblue"&gt;Blue Table&lt;/table&gt;
+          </div>
+          
+          <div class="attribute-preview">
+            <table class="demo-table">
+              <tr bgcolor="#e3f2fd">
+                <td>Light Blue</td>
+                <td bgcolor="#ffeb3b">Yellow</td>
+              </tr>
+            </table>
+          </div>
+          
+          <div class="attribute-notes">
+            <h4>Note:</h4>
+            <ul>
+              <li>Deprecated in HTML5</li>
+              <li>Use CSS instead: background-color</li>
+              <li>Still works in browsers</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="attribute-card">
+          <div class="attribute-icon">📐</div>
+          <h3>align</h3>
+          <p>Horizontal alignment (deprecated)</p>
+          
+          <div class="code-example">
+            &lt;td align="center"&gt;Centered&lt;/td&gt;<br>
+            &lt;tr align="right"&gt;Right Row&lt;/tr&gt;<br>
+            &lt;table align="center"&gt;Centered Table&lt;/table&gt;
+          </div>
+          
+          <div class="attribute-preview">
+            <table class="demo-table">
+              <tr>
+                <td align="left">Left</td>
+                <td align="center">Center</td>
+                <td align="right">Right</td>
+              </tr>
+            </table>
+          </div>
+          
+          <div class="attribute-notes">
+            <h4>Values:</h4>
+            <ul>
+              <li><code>left</code>, <code>center</code>, <code>right</code></li>
+              <li>Deprecated in HTML5</li>
+              <li>Use CSS: text-align</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="spacing-attributes">
+        <h3>Spacing & Padding Attributes:</h3>
+        <div class="concept-cards">
+          <div class="concept-card">
+            <div class="card-header">
+              <div class="card-icon">📏</div>
+              <h3>cellpadding</h3>
+            </div>
+            <div class="card-content">
+              <p>Space between cell content and borders</p>
+              <div class="code-example">
+                &lt;table cellpadding="10"&gt;<br>
+                &nbsp;&nbsp;&lt;tr&gt;&lt;td&gt;Padded Cell&lt;/td&gt;&lt;/tr&gt;<br>
+                &lt;/table&gt;
+              </div>
+              <div class="attribute-preview">
+                <table class="demo-table" style="border-collapse: collapse;" cellpadding="15">
+                  <tr>
+                    <td>More Padding</td>
+                    <td>Around Content</td>
+                  </tr>
+                </table>
+              </div>
+              <ul>
+                <li>Creates internal spacing</li>
+                <li>Deprecated - use CSS padding</li>
+                <li>Improves readability</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="concept-card">
+            <div class="card-header">
+              <div class="card-icon">🔄</div>
+              <h3>cellspacing</h3>
+            </div>
+            <div class="card-content">
+              <p>Space between table cells</p>
+              <div class="code-example">
+                &lt;table cellspacing="5"&gt;<br>
+                &nbsp;&nbsp;&lt;tr&gt;&lt;td&gt;Spaced Cells&lt;/td&gt;&lt;/tr&gt;<br>
+                &lt;/table&gt;
+              </div>
+              <div class="attribute-preview">
+                <table class="demo-table" cellspacing="10">
+                  <tr>
+                    <td>More</td>
+                    <td>Space</td>
+                    <td>Between</td>
+                    <td>Cells</td>
+                  </tr>
+                </table>
+              </div>
+              <ul>
+                <li>Creates gaps between cells</li>
+                <li>Deprecated - use CSS border-spacing</li>
+                <li>Affects entire table</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="concept-card">
+            <div class="card-header">
+              <div class="card-icon">🎯</div>
+              <h3>border</h3>
+            </div>
+            <div class="card-content">
+              <p>Table border width</p>
+              <div class="code-example">
+                &lt;table border="1"&gt;<br>
+                &nbsp;&nbsp;&lt;tr&gt;&lt;td&gt;Bordered Table&lt;/td&gt;&lt;/tr&gt;<br>
+                &lt;/table&gt;
+              </div>
+              <div class="attribute-preview">
+                <table class="demo-table" border="3">
+                  <tr>
+                    <td>Thicker</td>
+                    <td>Borders</td>
+                  </tr>
+                </table>
+              </div>
+              <ul>
+                <li>Sets border width in pixels</li>
+                <li>0 = no border, 1+ = border width</li>
+                <li>Deprecated - use CSS border</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== INTERACTIVE TABLE BUILDER ===== -->
+  <section class="slide demo-slide" data-slide="4">
+    <div class="slide-background">
+      <div class="bg-code"></div>
+    </div>
+
+    <div class="slide-content">
+      <div class="slide-header">
+        <div class="chapter-badge">Part 10: HTML Tables</div>
+        <h2 class="slide-title">Interactive Table Builder</h2>
+        <div class="slide-subtitle">Create and Customize Tables in Real-Time</div>
+      </div>
+
+      <div class="interactive-demo">
+        <div class="demo-editor">
+          <div class="demo-header">
+            <div class="demo-title">Table Configuration</div>
+            <div class="demo-actions">
+              <div class="demo-action red"></div>
+              <div class="demo-action yellow"></div>
+              <div class="demo-action green"></div>
+            </div>
+          </div>
+          <div class="editor-content" id="tableConfig">
+&lt;!-- Configure your table here --&gt;
+&lt;table border="1" cellpadding="5" cellspacing="0"&gt;
+  &lt;tr&gt;
+    &lt;th&gt;Product&lt;/th&gt;
+    &lt;th&gt;Price&lt;/th&gt;
+    &lt;th&gt;Stock&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Laptop&lt;/td&gt;
+    &lt;td&gt;$999&lt;/td&gt;
+    &lt;td&gt;15&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Mouse&lt;/td&gt;
+    &lt;td&gt;$25&lt;/td&gt;
+    &lt;td&gt;50&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+          </div>
+        </div>
+
+        <div class="demo-preview">
+          <div class="demo-header">
+            <div class="demo-title">Live Preview</div>
+            <div class="demo-actions">
+              <div class="demo-action red"></div>
+              <div class="demo-action yellow"></div>
+              <div class="demo-action green"></div>
+            </div>
+          </div>
+          <div class="preview-content" id="tablePreview">
+            <!-- Preview will be generated by JavaScript -->
+          </div>
+        </div>
+      </div>
+
+      <div class="control-panel">
+        <div class="control-group">
+          <label class="control-label">Rows:</label>
+          <input type="number" class="control-input" id="tableRows" value="3" min="1" max="10">
+        </div>
+        
+        <div class="control-group">
+          <label class="control-label">Columns:</label>
+          <input type="number" class="control-input" id="tableCols" value="3" min="1" max="8">
+        </div>
+        
+        <div class="control-group">
+          <label class="control-label">Border:</label>
+          <input type="range" class="control-input" id="tableBorder" min="0" max="5" value="1">
+          <span id="borderValue">1px</span>
+        </div>
+        
+        <div class="control-group">
+          <label class="control-label">Cell Padding:</label>
+          <input type="range" class="control-input" id="cellPadding" min="0" max="20" value="5">
+          <span id="paddingValue">5px</span>
+        </div>
+        
+        <div class="control-group">
+          <label class="control-label">Cell Spacing:</label>
+          <input type="range" class="control-input" id="cellSpacing" min="0" max="15" value="0">
+          <span id="spacingValue">0px</span>
+        </div>
+        
+        <div class="control-group">
+          <label class="control-label">Include Header Row:</label>
+          <input type="checkbox" id="includeHeader" checked>
+        </div>
+        
+        <button class="control-btn" id="generateTable">Generate Table</button>
+      </div>
+
+      <div class="demo-instructions">
+        <h3>How to Use:</h3>
+        <ol>
+          <li>Set the number of rows and columns</li>
+          <li>Adjust border thickness</li>
+          <li>Control cell padding and spacing</li>
+          <li>Choose whether to include header row</li>
+          <li>Click "Generate Table" to see changes</li>
+          <li>Copy the generated HTML code for your projects</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PRACTICAL TABLE EXAMPLES ===== -->
+  <section class="slide content-slide" data-slide="5">
+    <div class="slide-background">
+      <div class="bg-features"></div>
+    </div>
+
+    <div class="slide-content">
+      <div class="slide-header">
+        <div class="chapter-badge">Part 10: HTML Tables</div>
+        <h2 class="slide-title">Practical Table Examples</h2>
+        <div class="slide-subtitle">Real-World Table Implementations</div>
+      </div>
+
+      <div class="table-examples">
+        <div class="example-card">
+          <h3>Pricing Table</h3>
+          <p>Perfect for showcasing product plans and features</p>
+          
+          <table class="pricing-table">
+            <tr>
+              <th>Feature</th>
+              <th>Basic</th>
+              <th>Pro</th>
+              <th>Enterprise</th>
+            </tr>
+            <tr>
+              <td>Storage</td>
+              <td>5GB</td>
+              <td>50GB</td>
+              <td>Unlimited</td>
+            </tr>
+            <tr>
+              <td>Users</td>
+              <td>1</td>
+              <td>5</td>
+              <td>Unlimited</td>
+            </tr>
+            <tr>
+              <td>Support</td>
+              <td>Email</td>
+              <td>Priority</td>
+              <td>24/7 Phone</td>
+            </tr>
+            <tr>
+              <td>Price</td>
+              <td class="price">$9.99</td>
+              <td class="price">$29.99</td>
+              <td class="price">$99.99</td>
+            </tr>
+          </table>
+          
+          <div class="code-example">
+            &lt;table class="pricing-table"&gt;<br>
+            &nbsp;&nbsp;&lt;tr&gt;<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&lt;th&gt;Feature&lt;/th&gt;<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&lt;th&gt;Basic&lt;/th&gt;<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&lt;th&gt;Pro&lt;/th&gt;<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&lt;th&gt;Enterprise&lt;/th&gt;<br>
+            &nbsp;&nbsp;&lt;/tr&gt;<br>
+            &nbsp;&nbsp;&lt;tr&gt;<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&lt;td&gt;Storage&lt;/td&gt;<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&lt;td&gt;5GB&lt;/td&gt;<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&lt;td&gt;50GB&lt;/td&gt;<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&lt;td&gt;Unlimited&lt;/td&gt;<br>
+            &nbsp;&nbsp;&lt;/tr&gt;<br>
+            &lt;/table&gt;
+          </div>
+        </div>
+
+        <div class="example-card">
+          <h3>Class Timetable</h3>
+          <p>Ideal for schedules and time-based data</p>
+          
+          <table class="timetable">
+            <tr>
+              <th>Time</th>
+              <th>Monday</th>
+              <th>Tuesday</th>
+              <th>Wednesday</th>
+            </tr>
+            <tr>
+              <td class="time-slot">9:00-10:00</td>
+              <td>Math</td>
+              <td>Science</td>
+              <td>English</td>
+            </tr>
+            <tr>
+              <td class="time-slot">10:00-11:00</td>
+              <td>History</td>
+              <td rowspan="2">Art Workshop</td>
+              <td>Geography</td>
+            </tr>
+            <tr>
+              <td class="time-slot">11:00-12:00</td>
+              <td>Physics</td>
+              <td>Chemistry</td>
+            </tr>
+            <tr>
+              <td class="time-slot">12:00-1:00</td>
+              <td colspan="3" style="text-align: center; background: #ffeaa7;">Lunch Break</td>
+            </tr>
+          </table>
+          
+          <div class="code-example">
+            &lt;table class="timetable"&gt;<br>
+            &nbsp;&nbsp;&lt;tr&gt;<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&lt;th&gt;Time&lt;/th&gt;<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&lt;th&gt;Monday&lt;/th&gt;<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&lt;th&gt;Tuesday&lt;/th&gt;<br>
+            &nbsp;&nbsp;&lt;/tr&gt;<br>
+            &nbsp;&nbsp;&lt;tr&gt;<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&lt;td class="time-slot"&gt;9:00-10:00&lt;/td&gt;<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&lt;td&gt;Math&lt;/td&gt;<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&lt;td&gt;Science&lt;/td&gt;<br>
+            &nbsp;&nbsp;&lt;/tr&gt;<br>
+            &nbsp;&nbsp;&lt;tr&gt;<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&lt;td class="time-slot"&gt;10:00-11:00&lt;/td&gt;<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&lt;td&gt;History&lt;/td&gt;<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&lt;td rowspan="2"&gt;Art Workshop&lt;/td&gt;<br>
+            &nbsp;&nbsp;&lt;/tr&gt;<br>
+            &lt;/table&gt;
+          </div>
+        </div>
+      </div>
+
+      <div class="advanced-table-examples">
+        <h3>Advanced Table Features:</h3>
+        
+        <div class="concept-cards">
+          <div class="concept-card">
+            <div class="card-header">
+              <div class="card-icon">📋</div>
+              <h3>Employee Directory</h3>
+            </div>
+            <div class="card-content">
+              <div class="live-preview">
+                <table class="demo-table">
+                  <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Department</th>
+                    <th>Salary</th>
+                  </tr>
+                  <tr>
+                    <td>001</td>
+                    <td>John Smith</td>
+                    <td>Engineering</td>
+                    <td>$85,000</td>
+                  </tr>
+                  <tr>
+                    <td>002</td>
+                    <td>Sarah Johnson</td>
+                    <td>Marketing</td>
+                    <td>$65,000</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <div class="concept-card">
+            <div class="card-header">
+              <div class="card-icon">🏪</div>
+              <h3>Product Inventory</h3>
+            </div>
+            <div class="card-content">
+              <div class="live-preview">
+                <table class="demo-table">
+                  <tr>
+                    <th>Product ID</th>
+                    <th>Name</th>
+                    <th>Category</th>
+                    <th>Quantity</th>
+                  </tr>
+                  <tr>
+                    <td>P1001</td>
+                    <td>Wireless Mouse</td>
+                    <td>Electronics</td>
+                    <td>150</td>
+                  </tr>
+                  <tr>
+                    <td>P1002</td>
+                    <td>Mechanical Keyboard</td>
+                    <td>Electronics</td>
+                    <td>75</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <div class="concept-card">
+            <div class="card-header">
+              <div class="card-icon">📊</div>
+              <h3>Survey Results</h3>
+            </div>
+            <div class="card-content">
+              <div class="live-preview">
+                <table class="demo-table">
+                  <tr>
+                    <th>Question</th>
+                    <th>Yes</th>
+                    <th>No</th>
+                    <th>Undecided</th>
+                  </tr>
+                  <tr>
+                    <td>Like our product?</td>
+                    <td>75%</td>
+                    <td>15%</td>
+                    <td>10%</td>
+                  </tr>
+                  <tr>
+                    <td>Would recommend?</td>
+                    <td>80%</td>
+                    <td>12%</td>
+                    <td>8%</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== MODERN TABLE STYLING ===== -->
+  <section class="slide content-slide" data-slide="6">
+    <div class="slide-background">
+      <div class="bg-quiz"></div>
+    </div>
+
+    <div class="slide-content">
+      <div class="slide-header">
+        <div class="chapter-badge">Part 10: HTML Tables</div>
+        <h2 class="slide-title">Modern Table Styling</h2>
+        <div class="slide-subtitle">CSS for Beautiful, Responsive Tables</div>
+      </div>
+
+      <div class="table-styling">
+        <h3>Styled Table with CSS</h3>
+        <p>Modern tables use CSS instead of deprecated HTML attributes for styling:</p>
+        
+        <table class="styled-table">
+          <tr>
+            <th>Product</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>Rating</th>
+          </tr>
+          <tr>
+            <td>Wireless Earbuds</td>
+            <td>Electronics</td>
+            <td>$79.99</td>
+            <td>★★★★☆</td>
+          </tr>
+          <tr>
+            <td>Smart Watch</td>
+            <td>Wearables</td>
+            <td>$199.99</td>
+            <td>★★★★★</td>
+          </tr>
+          <tr>
+            <td>Tablet</td>
+            <td>Computers</td>
+            <td>$329.99</td>
+            <td>★★★★☆</td>
+          </tr>
+          <tr>
+            <td>Smartphone</td>
+            <td>Mobile</td>
+            <td>$699.99</td>
+            <td>★★★★★</td>
+          </tr>
+        </table>
+        
+        <div class="code-example">
+          &lt;style&gt;<br>
+          .styled-table {<br>
+          &nbsp;&nbsp;width: 100%;<br>
+          &nbsp;&nbsp;border-collapse: collapse;<br>
+          &nbsp;&nbsp;margin: 1rem 0;<br>
+          &nbsp;&nbsp;box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);<br>
+          }<br><br>
+          .styled-table th {<br>
+          &nbsp;&nbsp;background: linear-gradient(135deg, #667eea, #764ba2);<br>
+          &nbsp;&nbsp;color: white;<br>
+          &nbsp;&nbsp;font-weight: 600;<br>
+          &nbsp;&nbsp;padding: 0.75rem;<br>
+          &nbsp;&nbsp;text-align: left;<br>
+          }<br><br>
+          .styled-table tr:nth-child(even) {<br>
+          &nbsp;&nbsp;background: #f8f9fa;<br>
+          }<br><br>
+          .styled-table tr:hover {<br>
+          &nbsp;&nbsp;background: #e3f2fd;<br>
+          }<br>
+          &lt;/style&gt;
+        </div>
+      </div>
+
+      <div class="css-alternatives">
+        <h3>CSS Alternatives to Deprecated Attributes:</h3>
+        <div class="concept-cards">
+          <div class="concept-card">
+            <div class="card-header">
+              <div class="card-icon">🎨</div>
+              <h3>Background & Colors</h3>
+            </div>
+            <div class="card-content">
+              <div class="code-example">
+                /* Instead of bgcolor */<br>
+                background-color: #f0f8ff;<br><br>
+                /* Header background */<br>
+                th {<br>
+                &nbsp;&nbsp;background: #4a90e2;<br>
+                &nbsp;&nbsp;color: white;<br>
+                }<br><br>
+                /* Zebra striping */<br>
+                tr:nth-child(even) {<br>
+                &nbsp;&nbsp;background: #f8f9fa;<br>
+                }
+              </div>
+            </div>
+          </div>
+
+          <div class="concept-card">
+            <div class="card-header">
+              <div class="card-icon">📐</div>
+              <h3>Spacing & Alignment</h3>
+            </div>
+            <div class="card-content">
+              <div class="code-example">
+                /* Instead of cellpadding */<br>
+                td, th {<br>
+                &nbsp;&nbsp;padding: 0.75rem;<br>
+                }<br><br>
+                /* Instead of cellspacing */<br>
+                table {<br>
+                &nbsp;&nbsp;border-spacing: 5px;<br>
+                }<br><br>
+                /* Instead of align */<br>
+                td {<br>
+                &nbsp;&nbsp;text-align: center;<br>
+                }
+              </div>
+            </div>
+          </div>
+
+          <div class="concept-card">
+            <div class="card-header">
+              <div class="card-icon">🎯</div>
+              <h3>Borders & Effects</h3>
+            </div>
+            <div class="card-content">
+              <div class="code-example">
+                /* Instead of border */<br>
+                table {<br>
+                &nbsp;&nbsp;border: 1px solid #ddd;<br>
+                }<br><br>
+                /* Cell borders */<br>
+                td, th {<br>
+                &nbsp;&nbsp;border: 1px solid #e1e1e1;<br>
+                }<br><br>
+                /* Hover effects */<br>
+                tr:hover {<br>
+                &nbsp;&nbsp;background: #e3f2fd;<br>
+                &nbsp;&nbsp;transition: background 0.3s;<br>
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="responsive-tables">
+        <h3>Making Tables Responsive:</h3>
+        <div class="concept-explanation">
+          <p>For mobile devices, tables can be challenging. Here are some solutions:</p>
+          <div class="code-example">
+            /* Horizontal scroll for small screens */<br>
+            .responsive-table {<br>
+            &nbsp;&nbsp;overflow-x: auto;<br>
+            &nbsp;&nbsp;display: block;<br>
+            &nbsp;&nbsp;white-space: nowrap;<br>
+            }<br><br>
+            /* Stack rows on mobile */<br>
+            @media (max-width: 768px) {<br>
+            &nbsp;&nbsp;table, thead, tbody, th, td, tr {<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;display: block;<br>
+            &nbsp;&nbsp;}<br>
+            &nbsp;&nbsp;thead tr {<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;position: absolute;<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;top: -9999px;<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;left: -9999px;<br>
+            &nbsp;&nbsp;}<br>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== BEST PRACTICES ===== -->
+  <section class="slide content-slide" data-slide="7">
+    <div class="slide-background">
+      <div class="bg-code"></div>
+    </div>
+
+    <div class="slide-content">
+      <div class="slide-header">
+        <div class="chapter-badge">Part 10: HTML Tables</div>
+        <h2 class="slide-title">Best Practices</h2>
+        <div class="slide-subtitle">Creating Effective & Accessible Tables</div>
+      </div>
+
+      <div class="best-practices">
+        <div class="practice-card">
+          <div class="practice-icon">♿</div>
+          <h4>Use Proper Headers</h4>
+          <p>Always use &lt;th&gt; for header cells and scope attribute for accessibility</p>
+        </div>
+
+        <div class="practice-card">
+          <div class="practice-icon">📱</div>
+          <h4>Responsive Design</h4>
+          <p>Ensure tables work on mobile devices with horizontal scroll or stacked layout</p>
+        </div>
+
+        <div class="practice-card">
+          <div class="practice-icon">🎨</div>
+          <h4>CSS for Styling</h4>
+          <p>Use CSS instead of deprecated HTML attributes for colors, spacing, and borders</p>
+        </div>
+
+        <div class="practice-card">
+          <div class="practice-icon">📊</div>
+          <h4>Semantic Structure</h4>
+          <p>Use &lt;thead&gt;, &lt;tbody&gt;, &lt;tfoot&gt; for better structure and printing</p>
+        </div>
+
+        <div class="practice-card">
+          <div class="practice-icon">🎯</div>
+          <h4>Clear Purpose</h4>
+          <p>Only use tables for tabular data, not for page layout</p>
+        </div>
+
+        <div class="practice-card">
+          <div class="practice-icon">⚡</div>
+          <h4>Performance</h4>
+          <p>Avoid extremely large tables; consider pagination for big datasets</p>
+        </div>
+      </div>
+
+      <div class="accessibility-section">
+        <h3>Accessibility Features:</h3>
+        <div class="concept-cards">
+          <div class="concept-card">
+            <div class="card-header">
+              <div class="card-icon">🔤</div>
+              <h3>Scope Attribute</h3>
+            </div>
+            <div class="card-content">
+              <p>Helps screen readers understand table structure</p>
+              <div class="code-example">
+                &lt;th scope="col"&gt;Product Name&lt;/th&gt;<br>
+                &lt;th scope="col"&gt;Price&lt;/th&gt;<br>
+                &lt;th scope="row"&gt;Total&lt;/th&gt;
+              </div>
+              <ul>
+                <li><code>scope="col"</code> for column headers</li>
+                <li><code>scope="row"</code> for row headers</li>
+                <li>Essential for complex tables</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="concept-card">
+            <div class="card-header">
+              <div class="card-icon">🏷️</div>
+              <h3>Caption & Summary</h3>
+            </div>
+            <div class="card-content">
+              <p>Provides context for table content</p>
+              <div class="code-example">
+                &lt;table&gt;<br>
+                &nbsp;&nbsp;&lt;caption&gt;Monthly Sales Report&lt;/caption&gt;<br>
+                &nbsp;&nbsp;&lt;tr&gt;...&lt;/tr&gt;<br>
+                &lt;/table&gt;
+              </div>
+              <ul>
+                <li><code>&lt;caption&gt;</code> provides table title</li>
+                <li>Helps users understand table purpose</li>
+                <li>Important for data tables</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="concept-card">
+            <div class="card-header">
+              <div class="card-icon">📝</div>
+              <h3>Headers Attribute</h3>
+            </div>
+            <div class="card-content">
+              <p>Links data cells to their headers</p>
+              <div class="code-example">
+                &lt;th id="name"&gt;Product Name&lt;/th&gt;<br>
+                &lt;td headers="name"&gt;Wireless Mouse&lt;/td&gt;
+              </div>
+              <ul>
+                <li>Use for complex tables with multiple headers</li>
+                <li>Links &lt;td&gt; to &lt;th&gt; via id/headers</li>
+                <li>Advanced accessibility feature</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="do-dont-section">
+        <h3>Do's and Don'ts:</h3>
+        <div class="comparison-container">
+          <div class="advantages-section">
+            <h4 class="section-title">✅ Do This</h4>
+            <div class="features-grid">
+              <div class="feature-item">
+                <div class="feature-text">
+                  <h4>Use for Tabular Data</h4>
+                  <p>Tables for data, CSS for layout</p>
+                </div>
+              </div>
+              <div class="feature-item">
+                <div class="feature-text">
+                  <h4>Include Headers</h4>
+                  <p>Always use &lt;th&gt; for header cells</p>
+                </div>
+              </div>
+              <div class="feature-item">
+                <div class="feature-text">
+                  <h4>Make Responsive</h4>
+                  <p>Ensure tables work on mobile</p>
+                </div>
+              </div>
+              <div class="feature-item">
+                <div class="feature-text">
+                  <h4>Use CSS Styling</h4>
+                  <p>Modern CSS instead of deprecated attributes</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="disadvantages-section">
+            <h4 class="section-title">❌ Don't Do This</h4>
+            <div class="features-grid">
+              <div class="feature-item">
+                <div class="feature-text">
+                  <h4>Use for Page Layout</h4>
+                  <p>Tables shouldn't control page structure</p>
+                </div>
+              </div>
+              <div class="feature-item">
+                <div class="feature-text">
+                  <h4>Nest Tables Deeply</h4>
+                  <p>Avoid complex table nesting</p>
+                </div>
+              </div>
+              <div class="feature-item">
+                <div class="feature-text">
+                  <h4>Use Deprecated Attributes</h4>
+                  <p>Avoid bgcolor, align, etc.</p>
+                </div>
+              </div>
+              <div class="feature-item">
+                <div class="feature-text">
+                  <h4>Ignore Accessibility</h4>
+                  <p>Always consider screen readers</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== RECAP & NEXT STEPS ===== -->
+  <section class="slide final-slide" data-slide="8">
+    <div class="slide-background">
+      <div class="bg-final"></div>
+    </div>
+
+    <div class="slide-content">
+      <div class="completion-animation">
+        <div class="confetti-container"></div>
+        <div class="trophy">COMPLETE</div>
+        <h2 class="completion-title">Tables Mastered!</h2>
+        <p class="completion-subtitle">You've Learned HTML Tables</p>
+      </div>
+
+      <div class="recap-section">
+        <h3>What We Covered in Part 10:</h3>
+        <div class="recap-grid">
+          <div class="recap-item">
+            <div class="recap-icon">📊</div>
+            <h4>Table Basics</h4>
+            <p>table, tr, th, td elements</p>
+          </div>
+          <div class="recap-item">
+            <div class="recap-icon">🔀</div>
+            <h4>Cell Merging</h4>
+            <p>colspan and rowspan attributes</p>
+          </div>
+          <div class="recap-item">
+            <div class="recap-icon">🎨</div>
+            <h4>Styling Attributes</h4>
+            <p>bgcolor, align, border</p>
+          </div>
+          <div class="recap-item">
+            <div class="recap-icon">📏</div>
+            <h4>Spacing</h4>
+            <p>cellpadding and cellspacing</p>
+          </div>
+          <div class="recap-item">
+            <div class="recap-icon">💵</div>
+            <h4>Practical Examples</h4>
+            <p>Pricing tables, timetables</p>
+          </div>
+          <div class="recap-item">
+            <div class="recap-icon">🎯</div>
+            <h4>Best Practices</h4>
+            <p>Accessibility and modern CSS</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="practice-section">
+        <h3>Practice Exercise:</h3>
+        <div class="exercise-card">
+          <h4>Create a Complete Course Schedule</h4>
+          <p>Build a comprehensive weekly timetable with:</p>
+          <ul>
+            <li>Header row with days of the week</li>
+            <li>Time slots in the first column</li>
+            <li>Merged cells for double-period classes</li>
+            <li>Different background colors for subjects</li>
+            <li>Lunch break spanning all columns</li>
+            <li>Proper spacing and borders</li>
+          </ul>
+          <button class="exercise-btn">Start Building</button>
+        </div>
+      </div>
+
+      <div class="key-takeaways">
+        <h3>Key Takeaways:</h3>
+        <div class="features-grid">
+          <div class="feature-item">
+            <div class="feature-text">
+              <h4>Semantic Structure</h4>
+              <p>Tables are for tabular data, not page layout</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-text">
+              <h4>Modern Styling</h4>
+              <p>Use CSS instead of deprecated HTML attributes</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-text">
+              <h4>Accessibility First</h4>
+              <p>Always include proper headers and structure</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-text">
+              <h4>Responsive Design</h4>
+              <p>Ensure tables work on all devices</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cta-section">
+        <button class="cta-button" id="nextVideo">
+          <span> <a href="youtube11.html">ontinue to Part 11: HTML Forms & Input</a></span>
+          <i class="fas fa-arrow-right"></i>
+        </button>
+        <p class="cta-note">Next: Learn about creating forms, input fields, buttons, and user interaction</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PRESENTER NOTES ===== -->
+  <div class="presenter-notes" id="presenterNotes">
+    <div class="notes-header">
+      <h4>Presenter Notes - Video 10</h4>
+      <button class="notes-toggle" id="toggleNotes">
+        <i class="fas fa-chevron-up"></i>
+      </button>
+    </div>
+    <div class="notes-content">
+      <div class="note" data-slide="1">
+        <strong>Intro Slide:</strong> Emphasize that tables are essential for displaying structured data but should not be used for page layout. They're perfect for schedules, pricing, and data comparison.
+      </div>
+      <div class="note" data-slide="2">
+        <strong>Table Basics:</strong> Demonstrate the basic table structure. Show how rows and cells work together to create the grid layout.
+      </div>
+      <div class="note" data-slide="3">
+        <strong>Table Attributes:</strong> Show practical examples of colspan and rowspan. Emphasize that many styling attributes are deprecated but still work.
+      </div>
+      <div class="note" data-slide="4">
+        <strong>Interactive Builder:</strong> Let students experiment with different table configurations. Show how attributes affect table appearance.
+      </div>
+      <div class="note" data-slide="5">
+        <strong>Practical Examples:</strong> Demonstrate real-world table uses. Show how to create pricing tables and schedules with merged cells.
+      </div>
+      <div class="note" data-slide="6">
+        <strong>Modern Styling:</strong> Emphasize using CSS instead of deprecated attributes. Show beautiful, accessible table designs.
+      </div>
+      <div class="note" data-slide="7">
+        <strong>Best Practices:</strong> Focus on accessibility and semantic structure. Show how to make tables work on mobile devices.
+      </div>
+      <div class="note" data-slide="8">
+        <strong>Recap:</strong> Summarize key table concepts. Assign the timetable exercise. Preview forms for next video.
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== MOVING SOCIAL BAR ===== -->
+  <div class="social-ticker">
+    <div class="ticker-content">
+      <span class="ticker-item">🎓 HTML Tables - DevVoltz Academy</span>
+      <span class="ticker-item">🌐 Website: www.devvoltz.com</span>
+      <span class="ticker-item">📱 Telegram: @devvoltz</span>
+      <span class="ticker-item">📸 Instagram: @devvoltz</span>
+      <span class="ticker-item">👥 Facebook: facebook.com/devvoltz</span>
+      <span class="ticker-item">💻 Next: HTML Forms & Input</span>
+    </div>
+  </div>
+
+  <script src="js/script.js"></script>
+<script>
+    // Ultimate Presentation Controller
+class UltimatePresentation {
+    constructor() {
+        this.currentSlide = 1;
+        this.totalSlides = 8;
+        this.isLaserActive = false;
+        this.isRecording = true;
+        this.isNotesVisible = false;
+        this.animationDelays = new Map();
+        
+        this.init();
+    }
+
+    init() {
+        this.setupSlides();
+        this.setupControls();
+        this.setupLaserPointer();
+        this.setupAnimations();
+        this.setupDemo();
+        this.setupQuiz();
+        this.setupParticles();
+        this.startRecordingIndicator();
+        
+        // Auto-advance for demo purposes (remove in production)
+       // this.setupAutoAdvance();
+    }
+
+    setupSlides() {
+        this.slides = document.querySelectorAll('.slide');
+        this.totalSlides = this.slides.length;
+        this.showSlide(1);
+        
+        // Update slide counter
+        this.updateSlideCounter();
+    }
+
+    showSlide(slideNumber) {
+        // Hide all slides
+        this.slides.forEach(slide => {
+            slide.classList.remove('active');
+        });
+        
+        // Show current slide
+        const currentSlide = document.querySelector(`[data-slide="${slideNumber}"]`);
+        if (currentSlide) {
+            currentSlide.classList.add('active');
+            this.currentSlide = slideNumber;
+            
+            // Update progress
+            this.updateProgress();
+            this.updateSlideCounter();
+            this.updatePresenterNotes();
+            
+            // Trigger animations
+            this.triggerSlideAnimations(currentSlide);
+        }
+    }
+
+    nextSlide() {
+        if (this.currentSlide < this.totalSlides) {
+            this.showSlide(this.currentSlide + 1);
+        }
+    }
+
+    prevSlide() {
+        if (this.currentSlide > 1) {
+            this.showSlide(this.currentSlide - 1);
+        }
+    }
+
+    updateProgress() {
+        const progress = (this.currentSlide / this.totalSlides) * 100;
+        const progressBar = document.getElementById('progressBar');
+        if (progressBar) {
+            progressBar.style.width = `${progress}%`;
+        }
+        
+        const slideProgress = (this.currentSlide / this.totalSlides) * 100;
+        const slideProgressBar = document.querySelector('.slide-progress-bar');
+        if (slideProgressBar) {
+            slideProgressBar.style.width = `${slideProgress}%`;
+        }
+    }
+
+    updateSlideCounter() {
+        const slideCounter = document.getElementById('slideCounter');
+        if (slideCounter) {
+            slideCounter.textContent = `${this.currentSlide}/${this.totalSlides}`;
+        }
+        
+        const currentSlideElem = document.getElementById('currentSlide');
+        const totalSlidesElem = document.getElementById('totalSlides');
+        
+        if (currentSlideElem) currentSlideElem.textContent = this.currentSlide;
+        if (totalSlidesElem) totalSlidesElem.textContent = this.totalSlides;
+    }
+
+    setupControls() {
+        // Safe element selection with null checks
+        const elements = {
+            slideNext: document.getElementById('slideNext'),
+            slidePrev: document.getElementById('slidePrev'),
+            startCourse: document.getElementById('startCourse'),
+            nextChapter: document.getElementById('nextChapter'),
+            toggleTheme: document.getElementById('toggleTheme'),
+            toggleLaser: document.getElementById('toggleLaser'),
+            toggleGrid: document.getElementById('toggleGrid'),
+            toggleNotes: document.getElementById('toggleNotes')
+        };
+
+        // Add event listeners only if elements exist
+        if (elements.slideNext) {
+            elements.slideNext.addEventListener('click', () => this.nextSlide());
+        }
+        
+        if (elements.slidePrev) {
+            elements.slidePrev.addEventListener('click', () => this.prevSlide());
+        }
+
+        // Keyboard navigation (always available)
+        document.addEventListener('keydown', (e) => {
+            switch(e.key) {
+                case 'ArrowRight':
+                case ' ':
+                    e.preventDefault();
+                    this.nextSlide();
+                    break;
+                case 'ArrowLeft':
+                    e.preventDefault();
+                    this.prevSlide();
+                    break;
+                case 'l':
+                case 'L':
+                    e.preventDefault();
+                    this.toggleLaser();
+                    break;
+                case 't':
+                case 'T':
+                    e.preventDefault();
+                    this.toggleTheme();
+                    break;
+                case 'g':
+                case 'G':
+                    e.preventDefault();
+                    this.toggleGrid();
+                    break;
+                case 'n':
+                case 'N':
+                    e.preventDefault();
+                    this.toggleNotes();
+                    break;
+            }
+        });
+
+        // Optional buttons with null checks
+        if (elements.startCourse) {
+            elements.startCourse.addEventListener('click', () => {
+                this.nextSlide();
+            });
+        }
+
+        if (elements.nextChapter) {
+            elements.nextChapter.addEventListener('click', () => {
+                alert('Starting CSS Fundamentals! 🎨');
+            });
+        }
+
+        if (elements.toggleTheme) {
+            elements.toggleTheme.addEventListener('click', () => this.toggleTheme());
+        }
+        
+        if (elements.toggleLaser) {
+            elements.toggleLaser.addEventListener('click', () => this.toggleLaser());
+        }
+        
+        if (elements.toggleGrid) {
+            elements.toggleGrid.addEventListener('click', () => this.toggleGrid());
+        }
+        
+        if (elements.toggleNotes) {
+            elements.toggleNotes.addEventListener('click', () => this.toggleNotes());
+        }
+    }
+
+    setupLaserPointer() {
+        const laser = document.getElementById('laserPointer');
+        if (!laser) return;
+        
+        // Only create logo once if it doesn't exist
+        if (!laser.querySelector('img')) {
+            const logoImg = document.createElement('img');
+            logoImg.src = 'logodev2.jpg'; // Your logo path here
+            logoImg.alt = 'DevVoltz Laser Pointer';
+            laser.appendChild(logoImg);
+            laser.classList.add('logo-pointer');
+        }
+        
+        document.addEventListener('mousemove', (e) => {
+            if (this.isLaserActive && laser) {
+                laser.style.left = `${e.clientX - 15}px`; // Centered for 30px width
+                laser.style.top = `${e.clientY - 15}px`;
+                
+                // Create branded trail effect
+                if (Math.random() > 0.8) {
+                    this.createBrandedTrail(e.clientX, e.clientY);
+                }
+            }
+        });
+    }
+
+    toggleLaser() {
+        this.isLaserActive = !this.isLaserActive;
+        const laser = document.getElementById('laserPointer');
+        const laserBtn = document.getElementById('toggleLaser');
+        
+        if (this.isLaserActive) {
+            if (laser) laser.classList.add('active');
+            if (laserBtn) laserBtn.classList.add('active');
+            document.body.style.cursor = 'none'; // Hide default cursor
+            
+            // Add activation effect
+            this.createActivationEffect();
+        } else {
+            if (laser) laser.classList.remove('active');
+            if (laserBtn) laserBtn.classList.remove('active');
+            document.body.style.cursor = 'default'; // Restore cursor
+        }
+    }
+
+    createBrandedTrail(x, y) {
+        const trail = document.createElement('div');
+        trail.className = 'laser-trail';
+        trail.style.left = `${x - 3}px`;
+        trail.style.top = `${y - 3}px`;
+        
+        // Add subtle animation
+        trail.style.background = `var(--gradient-primary)`;
+        
+        document.body.appendChild(trail);
+        
+        setTimeout(() => {
+            trail.remove();
+        }, 1000);
+    }
+
+    createActivationEffect() {
+        const laser = document.getElementById('laserPointer');
+        if (!laser) return;
+        
+        laser.style.transform = 'scale(0)';
+        
+        setTimeout(() => {
+            laser.style.transition = 'transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)';
+            laser.style.transform = 'scale(1)';
+        }, 10);
+        
+        // Create ripple effect
+        this.createRippleEffect(laser);
+    }
+
+    createRippleEffect(element) {
+        const rect = element.getBoundingClientRect();
+        const x = rect.left + rect.width / 2;
+        const y = rect.top + rect.height / 2;
+        
+        for (let i = 0; i < 3; i++) {
+            setTimeout(() => {
+                const ripple = document.createElement('div');
+                ripple.style.position = 'fixed';
+                ripple.style.left = `${x}px`;
+                ripple.style.top = `${y}px`;
+                ripple.style.width = '4px';
+                ripple.style.height = '4px';
+                ripple.style.background = 'var(--primary)';
+                ripple.style.borderRadius = '50%';
+                ripple.style.pointerEvents = 'none';
+                ripple.style.zIndex = '9999';
+                ripple.style.transform = 'translate(-50%, -50%)';
+                
+                document.body.appendChild(ripple);
+                
+                // Animate ripple
+                const duration = 800;
+                const startTime = Date.now();
+                
+                const animateRipple = () => {
+                    const elapsed = Date.now() - startTime;
+                    const progress = elapsed / duration;
+                    
+                    if (progress < 1) {
+                        const scale = 1 + progress * 20;
+                        const opacity = 1 - progress;
+                        
+                        ripple.style.transform = `translate(-50%, -50%) scale(${scale})`;
+                        ripple.style.opacity = opacity.toString();
+                        
+                        requestAnimationFrame(animateRipple);
+                    } else {
+                        ripple.remove();
+                    }
+                };
+                
+                animateRipple();
+            }, i * 200);
+        }
+    }
+
+    toggleTheme() {
+        document.body.classList.toggle('light-theme');
+        const themeBtn = document.getElementById('toggleTheme');
+        if (!themeBtn) return;
+        
+        const icon = themeBtn.querySelector('i');
+        if (!icon) return;
+        
+        if (document.body.classList.contains('light-theme')) {
+            icon.classList.remove('fa-moon');
+            icon.classList.add('fa-sun');
+        } else {
+            icon.classList.remove('fa-sun');
+            icon.classList.add('fa-moon');
+        }
+    }
+
+    toggleGrid() {
+        document.body.classList.toggle('show-grid');
+        const gridBtn = document.getElementById('toggleGrid');
+        if (gridBtn) {
+            gridBtn.classList.toggle('active');
+        }
+    }
+
+    toggleNotes() {
+        this.isNotesVisible = !this.isNotesVisible;
+        const notes = document.getElementById('presenterNotes');
+        const toggleBtn = document.getElementById('toggleNotes');
+        
+        if (notes) {
+            if (this.isNotesVisible) {
+                notes.classList.add('show');
+            } else {
+                notes.classList.remove('show');
+            }
+        }
+        
+        if (toggleBtn) {
+            const icon = toggleBtn.querySelector('i');
+            if (icon) {
+                if (this.isNotesVisible) {
+                    icon.classList.remove('fa-chevron-up');
+                    icon.classList.add('fa-chevron-down');
+                } else {
+                    icon.classList.remove('fa-chevron-down');
+                    icon.classList.add('fa-chevron-up');
+                }
+            }
+        }
+    }
+
+    updatePresenterNotes() {
+        const notes = document.querySelectorAll('.note');
+        notes.forEach(note => note.classList.remove('active'));
+        
+        const currentNote = document.querySelector(`.note[data-slide="${this.currentSlide}"]`);
+        if (currentNote) {
+            currentNote.classList.add('active');
+        }
+    }
+
+    setupAnimations() {
+        // Intersection Observer for scroll animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const delay = entry.target.getAttribute('data-delay') || 0;
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                    }, delay * 1000);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        // Observe all animatable elements
+        document.querySelectorAll('.curriculum-item, .concept-card').forEach(el => {
+            observer.observe(el);
+        });
+    }
+
+    setupDemo() {
+        const runBtn = document.getElementById('runCode');
+        const resetBtn = document.getElementById('resetCode');
+        const livePreview = document.getElementById('livePreview');
+
+        if (runBtn && livePreview) {
+            runBtn.addEventListener('click', () => {
+                // Simulate code execution
+                livePreview.innerHTML = `
+                    <div style="padding: 2rem; font-family: system-ui;">
+                        <header style="background: #6366f1; color: white; padding: 2rem; text-align: center;">
+                            <h1 style="margin: 0;">Welcome</h1>
+                        </header>
+                        <main style="padding: 2rem;">
+                            <p style="font-size: 1.2rem;">Building amazing websites!</p>
+                        </main>
+                    </div>
+                `;
+                
+                // Add success animation
+                runBtn.innerHTML = '<i class="fas fa-check"></i> Executed';
+                runBtn.style.background = 'var(--gradient-accent)';
+                
+                setTimeout(() => {
+                    runBtn.innerHTML = '<i class="fas fa-play"></i> Run Code';
+                    runBtn.style.background = 'var(--gradient-primary)';
+                }, 2000);
+            });
+        }
+
+        if (resetBtn && livePreview) {
+            resetBtn.addEventListener('click', () => {
+                livePreview.innerHTML = '';
+            });
+        }
+    }
+
+    setupQuiz() {
+        const options = document.querySelectorAll('.quiz-option');
+        const feedback = document.getElementById('quizFeedback');
+
+        options.forEach(option => {
+            option.addEventListener('click', () => {
+                const isCorrect = option.getAttribute('data-correct') === 'true';
+                
+                // Show feedback
+                if (feedback) {
+                    feedback.classList.add('show');
+                }
+                
+                // Mark options
+                options.forEach(opt => {
+                    if (opt.getAttribute('data-correct') === 'true') {
+                        opt.classList.add('correct');
+                    } else {
+                        opt.classList.add('incorrect');
+                    }
+                });
+                
+                // Disable further clicks
+                options.forEach(opt => {
+                    opt.style.pointerEvents = 'none';
+                });
+            });
+        });
+    }
+
+    setupParticles() {
+        const container = document.getElementById('particles');
+        if (!container) return;
+        
+        const particleCount = 50;
+
+        for (let i = 0; i < particleCount; i++) {
+            this.createParticle(container);
+        }
+    }
+
+    createParticle(container) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        
+        // Random properties
+        const size = Math.random() * 4 + 2;
+        const left = Math.random() * 100;
+        const delay = Math.random() * 20;
+        const duration = Math.random() * 10 + 10;
+        
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        particle.style.left = `${left}%`;
+        particle.style.animationDelay = `${delay}s`;
+        particle.style.animationDuration = `${duration}s`;
+        particle.style.background = this.getRandomColor();
+        
+        container.appendChild(particle);
+        
+        // Remove and recreate particle after animation
+        setTimeout(() => {
+            particle.remove();
+            this.createParticle(container);
+        }, duration * 1000);
+    }
+
+    getRandomColor() {
+        const colors = [
+            '#6366f1', '#8b5cf6', '#f59e0b', '#10b981', '#ef4444'
+        ];
+        return colors[Math.floor(Math.random() * colors.length)];
+    }
+
+    triggerSlideAnimations(slide) {
+        // Reset animations
+        const animatables = slide.querySelectorAll('.curriculum-item, .concept-card');
+        animatables.forEach(el => {
+            el.classList.remove('visible');
+        });
+
+        // Trigger with delay
+        animatables.forEach((el, index) => {
+            setTimeout(() => {
+                el.classList.add('visible');
+            }, index * 200);
+        });
+
+        // Special animations for specific slides
+        switch(this.currentSlide) {
+            case 1:
+                this.animateIntro();
+                break;
+            case 8:
+                this.animateConfetti();
+                break;
+        }
+    }
+
+    animateIntro() {
+        // Title sequence already handled by CSS
+        console.log('Intro animations activated');
+    }
+
+    animateConfetti() {
+        const container = document.querySelector('.confetti-container');
+        if (!container) return;
+        
+        const confettiCount = 100;
+
+        for (let i = 0; i < confettiCount; i++) {
+            setTimeout(() => {
+                this.createConfetti(container);
+            }, i * 30);
+        }
+    }
+
+    createConfetti(container) {
+        const confetti = document.createElement('div');
+        confetti.className = 'confetti';
+        
+        const colors = ['#6366f1', '#8b5cf6', '#f59e0b', '#10b981', '#ef4444'];
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        
+        confetti.style.background = color;
+        confetti.style.left = `${Math.random() * 100}%`;
+        confetti.style.animationDuration = `${Math.random() * 3 + 2}s`;
+        
+        container.appendChild(confetti);
+        
+        setTimeout(() => {
+            confetti.remove();
+        }, 5000);
+    }
+
+    startRecordingIndicator() {
+        // Simulate recording state
+        setInterval(() => {
+            this.isRecording = !this.isRecording;
+            const indicator = document.getElementById('recordingIndicator');
+            
+            if (indicator) {
+                if (this.isRecording) {
+                    indicator.style.display = 'flex';
+                } else {
+                    indicator.style.display = 'none';
+                }
+            }
+        }, 5000);
+    }
+
+    setupAutoAdvance() {
+        // Auto-advance every 30 seconds for demo
+        setInterval(() => {
+            if (this.currentSlide < this.totalSlides) {
+                this.nextSlide();
+            }
+        }, 30000);
+    }
+}
+
+// Initialize the presentation when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    new UltimatePresentation();
+});
+
+// Additional utility functions
+function createParticleEffect(x, y, color = '#6366f1') {
+    for (let i = 0; i < 10; i++) {
+        setTimeout(() => {
+            const particle = document.createElement('div');
+            particle.style.position = 'fixed';
+            particle.style.left = `${x}px`;
+            particle.style.top = `${y}px`;
+            particle.style.width = '4px';
+            particle.style.height = '4px';
+            particle.style.background = color;
+            particle.style.borderRadius = '50%';
+            particle.style.pointerEvents = 'none';
+            particle.style.zIndex = '10000';
+            
+            document.body.appendChild(particle);
+            
+            const angle = Math.random() * Math.PI * 2;
+            const velocity = 2 + Math.random() * 2;
+            const vx = Math.cos(angle) * velocity;
+            const vy = Math.sin(angle) * velocity;
+            
+            let opacity = 1;
+            const animate = () => {
+                opacity -= 0.02;
+                particle.style.opacity = opacity;
+                particle.style.transform = `translate(${vx * (1 - opacity) * 50}px, ${vy * (1 - opacity) * 50}px)`;
+                
+                if (opacity > 0) {
+                    requestAnimationFrame(animate);
+                } else {
+                    particle.remove();
+                }
+            };
+            
+            animate();
+        }, i * 100);
+    }
+}
+
+// Add click effects for interactive elements
+document.addEventListener('click', (e) => {
+    if (e.target.classList.contains('interactive')) {
+        createParticleEffect(e.clientX, e.clientY);
+    }
+});
+
+// Export for global access
+window.UltimatePresentation = UltimatePresentation;
+
+// --- FIX: Prevent 'AbortError' play/pause warnings in Chrome/Edge ---
+(function() {
+    const originalPlay = HTMLMediaElement.prototype.play;
+    HTMLMediaElement.prototype.play = function(...args) {
+        const playPromise = originalPlay.apply(this, args);
+        if (playPromise !== undefined && typeof playPromise.catch === "function") {
+            playPromise.catch(err => {
+                if (err.name !== "AbortError") {
+                    console.warn("Media play blocked:", err);
+                }
+                // Silently ignore AbortError (normal browser behavior)
+            });
+        }
+        return playPromise;
+    };
+})();
+// Fullscreen Functionality
+const fullscreenBtn = document.getElementById('toggleFullscreen');
+const fullscreenHint = document.getElementById('fullscreenHint');
+
+// Show hint on first visit
+setTimeout(() => {
+    if (!localStorage.getItem('fullscreenHintShown')) {
+        fullscreenHint.classList.add('show');
+        setTimeout(() => {
+            fullscreenHint.classList.remove('show');
+            localStorage.setItem('fullscreenHintShown', 'true');
+        }, 3000);
+    }
+}, 2000);
+
+// Fullscreen toggle
+fullscreenBtn.addEventListener('click', toggleFullscreen);
+
+function toggleFullscreen() {
+    if (!document.fullscreenElement) {
+        enterFullscreen();
+    } else {
+        exitFullscreen();
+    }
+}
+
+function enterFullscreen() {
+    const elem = document.documentElement;
+    
+    if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+    } else if (elem.webkitRequestFullscreen) { /* Safari */
+        elem.webkitRequestFullscreen();
+    } else if (elem.msRequestFullscreen) { /* IE11 */
+        elem.msRequestFullscreen();
+    }
+}
+
+function exitFullscreen() {
+    if (document.exitFullscreen) {
+        document.exitFullscreen();
+    } else if (document.webkitExitFullscreen) { /* Safari */
+        document.webkitExitFullscreen();
+    } else if (document.msExitFullscreen) { /* IE11 */
+        document.msExitFullscreen();
+    }
+}
+
+// Update fullscreen button icon and title
+function updateFullscreenUI() {
+    const isFullscreen = document.fullscreenElement;
+    const icon = fullscreenBtn.querySelector('i');
+    
+    if (isFullscreen) {
+        icon.className = 'fas fa-compress';
+        fullscreenBtn.title = 'Exit Fullscreen (F)';
+        document.body.classList.add('fullscreen-active');
+    } else {
+        icon.className = 'fas fa-expand';
+        fullscreenBtn.title = 'Fullscreen (F)';
+        document.body.classList.remove('fullscreen-active');
+    }
+}
+
+// Listen for fullscreen changes
+document.addEventListener('fullscreenchange', updateFullscreenUI);
+document.addEventListener('webkitfullscreenchange', updateFullscreenUI);
+document.addEventListener('msfullscreenchange', updateFullscreenUI);
+
+// Keyboard shortcut for fullscreen (F key)
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'f' || e.key === 'F') {
+        toggleFullscreen();
+        e.preventDefault();
+    }
+    
+    // ESC key also exits fullscreen
+    if (e.key === 'Escape' && document.fullscreenElement) {
+        exitFullscreen();
+    }
+});
+
+// Mobile detection and enhancements
+function isMobileDevice() {
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+}
+
+if (isMobileDevice()) {
+    // Add mobile-specific fullscreen hint
+    document.addEventListener('touchstart', function() {
+        fullscreenHint.textContent = 'Use browser menu to enter fullscreen';
+        fullscreenHint.classList.add('show');
+        setTimeout(() => fullscreenHint.classList.remove('show'), 3000);
+    }, { once: true });
+}
+
+console.log('Fullscreen functionality loaded. Press F to toggle fullscreen.');
+// DOM Manipulation Demo Script
+document.addEventListener('DOMContentLoaded', function() {
+    const demoResult = document.getElementById('demoResult');
+    const changeTextBtn = document.getElementById('changeText');
+    const addElementBtn = document.getElementById('addElement');
+    const changeColorBtn = document.getElementById('changeColor');
+    const removeElementBtn = document.getElementById('removeElement');
+    
+    // Add null checks for all elements
+    if (!demoResult || !changeTextBtn || !addElementBtn || !changeColorBtn || !removeElementBtn) {
+        console.log('DOM Manipulation demo elements not found');
+        return;
+    }
+    
+    let elementCount = 0;
+    
+    changeTextBtn.addEventListener('click', function() {
+        demoResult.innerHTML = '<p>Text changed successfully using <code>innerHTML</code>!</p>';
+    });
+    
+    addElementBtn.addEventListener('click', function() {
+        elementCount++;
+        const newElement = document.createElement('div');
+        newElement.textContent = `New element #${elementCount} added dynamically`;
+        newElement.style.padding = '0.5rem';
+        newElement.style.margin = '0.5rem 0';
+        newElement.style.backgroundColor = 'rgba(74, 144, 226, 0.2)';
+        newElement.style.borderRadius = '4px';
+        demoResult.appendChild(newElement);
+    });
+    
+    changeColorBtn.addEventListener('click', function() {
+        const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#96ceb4', '#feca57'];
+        const randomColor = colors[Math.floor(Math.random() * colors.length)];
+        demoResult.style.backgroundColor = randomColor;
+    });
+    
+    removeElementBtn.addEventListener('click', function() {
+        if (demoResult.children.length > 0) {
+            demoResult.removeChild(demoResult.lastChild);
+        }
+    });
+});
+</script>
+</body>
+</html>

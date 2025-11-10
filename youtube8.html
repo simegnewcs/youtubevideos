@@ -1,0 +1,4242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DevVoltz Academy | HTML Images</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    /* ===== ADVANCED CSS RESET & VARIABLES ===== */
+:root {
+  --primary: #6366f1;
+  --primary-dark: #4f46e5;
+  --primary-light: #818cf8;
+  --secondary: #f59e0b;
+  --secondary-dark: #d97706;
+  --accent: #10b981;
+  --accent-dark: #059669;
+  --danger: #ef4444;
+  --warning: #f59e0b;
+  --success: #10b981;
+  
+  --dark-1: #0f172a;
+  --dark-2: #1e293b;
+  --dark-3: #334155;
+  --light-1: #f8fafc;
+  --light-2: #e2e8f0;
+  --light-3: #cbd5e1;
+  
+  --gradient-primary: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  --gradient-secondary: linear-gradient(135deg, #f59e0b 0%, #f97316 100%);
+  --gradient-accent: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+  --gradient-dark: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  --gradient-hero: linear-gradient(135deg, #0f172a 0%, #334155 50%, #1e293b 100%);
+  
+  --shadow-sm: 0 2px 4px rgba(0,0,0,0.1);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.15);
+  --shadow-lg: 0 10px 25px -5px rgba(0,0,0,0.2);
+  --shadow-xl: 0 25px 50px -12px rgba(0,0,0,0.25);
+  --shadow-glow: 0 0 30px rgba(99, 102, 241, 0.3);
+  
+  --border-radius-sm: 8px;
+  --border-radius-md: 12px;
+  --border-radius-lg: 16px;
+  --border-radius-xl: 24px;
+  
+  --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  --font-primary: 'Outfit', 'Inter', system-ui, sans-serif;
+  --font-mono: 'Fira Code', 'Courier New', monospace;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-primary);
+  background: var(--dark-1);
+  color: var(--light-1);
+  overflow-x: hidden;
+  line-height: 1.6;
+  position: relative;
+}
+
+/* ===== SLIDE SYSTEM - FIXED POSITIONING ===== */
+.slide {
+  min-height: 100vh;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: none;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all var(--transition-slow);
+  overflow-y: auto;
+}
+
+.slide.active {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.slide-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  overflow: hidden;
+}
+
+/* Background patterns for different slides */
+.bg-pattern {
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(99, 102, 241, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(245, 158, 11, 0.05) 0%, transparent 50%);
+}
+
+.bg-grid {
+  background-image: 
+    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+
+.bg-code {
+  background: 
+    linear-gradient(45deg, var(--dark-2) 25%, transparent 25%),
+    linear-gradient(-45deg, var(--dark-2) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, var(--dark-2) 75%),
+    linear-gradient(-45deg, transparent 75%, var(--dark-2) 75%);
+  background-size: 20px 20px;
+  background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+  opacity: 0.1;
+}
+
+.bg-features {
+  background: 
+    radial-gradient(circle at 30% 30%, rgba(99, 102, 241, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 70% 70%, rgba(16, 185, 129, 0.1) 0%, transparent 50%);
+}
+
+.bg-quiz {
+  background: 
+    linear-gradient(135deg, transparent 0%, rgba(99, 102, 241, 0.05) 100%);
+}
+
+.bg-final {
+  background: 
+    radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.1) 0%, transparent 70%),
+    radial-gradient(circle at 80% 20%, rgba(99, 102, 241, 0.1) 0%, transparent 50%);
+}
+
+/* ===== CINEMATIC INTRO SLIDE ===== */
+.intro-slide {
+  background: var(--gradient-hero);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+}
+
+.cinematic-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(99, 102, 241, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(245, 158, 11, 0.1) 0%, transparent 50%);
+  animation: float 6s ease-in-out infinite;
+}
+
+.particles-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  background: var(--primary);
+  border-radius: 50%;
+  animation: float-particle 20s linear infinite;
+}
+
+@keyframes float-particle {
+  0% {
+    transform: translateY(100vh) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.intro-content {
+  position: relative;
+  z-index: 2;
+  max-width: 1200px;
+  padding: 2rem;
+  margin: 0 auto;
+}
+
+.logo-reveal {
+  margin-bottom: 3rem;
+  position: relative;
+}
+
+.logo-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 200px;
+  height: 200px;
+  background: var(--gradient-primary);
+  border-radius: 50%;
+  filter: blur(40px);
+  opacity: 0.5;
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.3; transform: translate(-50%, -50%) scale(1); }
+  50% { opacity: 0.6; transform: translate(-50%, -50%) scale(1.1); }
+}
+
+.cinematic-logo {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid rgba(255,255,255,0.1);
+  box-shadow: var(--shadow-glow);
+  animation: logo-enter 3.5s ease-out;
+}
+
+@keyframes logo-enter {
+  0% {
+    opacity: 0;
+    transform: scale(0.5) rotate(-180deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+.title-sequence {
+  margin-bottom: 3rem;
+}
+
+.main-title {
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-weight: 800;
+  margin-bottom: 1rem;
+  line-height: 1.1;
+}
+
+.title-word {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: title-word 0.8s ease forwards;
+}
+
+.title-word:nth-child(1) { animation-delay: 0.5s; }
+.title-word:nth-child(2) { animation-delay: 1s; }
+.title-word:nth-child(3) { animation-delay: 1.5s; }
+
+@keyframes title-word {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.subtitle-reveal {
+  opacity: 0;
+  animation: subtitle-enter 1s ease 2s forwards;
+}
+
+@keyframes subtitle-enter {
+  to {
+    opacity: 1;
+  }
+}
+
+.course-subtitle {
+  font-size: 1.5rem;
+  color: var(--light-2);
+  margin-bottom: 1rem;
+}
+
+.title-underline {
+  width: 100px;
+  height: 4px;
+  background: var(--gradient-primary);
+  margin: 0 auto;
+  border-radius: 2px;
+  animation: underline-grow 1s ease 2.5s forwards;
+  transform: scaleX(0);
+  transform-origin: center;
+}
+
+@keyframes underline-grow {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.instructor-card {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  background: rgba(255,255,255,0.05);
+  padding: 1.5rem;
+  border-radius: var(--border-radius-lg);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.1);
+  margin-bottom: 3rem;
+  animation: card-enter 1s ease 3s forwards;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+@keyframes card-enter {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.instructor-avatar img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--primary);
+}
+
+.instructor-info h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.25rem;
+}
+
+.instructor-info p {
+  color: var(--light-3);
+  font-size: 0.9rem;
+}
+
+.start-pulse {
+  animation: pulse-cta 2s ease-in-out infinite;
+}
+
+.start-button {
+  background: var(--gradient-primary);
+  color: white;
+  border: none;
+  padding: 1.5rem 3rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  border-radius: 50px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: var(--transition-normal);
+  box-shadow: var(--shadow-glow);
+}
+
+.button-glow {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: var(--transition-normal);
+}
+
+.start-button:hover .button-glow {
+  left: 100%;
+}
+
+.start-button:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-xl);
+}
+
+@keyframes pulse-cta {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.scroll-indicator {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateX(-50%) translateY(0);
+  }
+  40% {
+    transform: translateX(-50%) translateY(-10px);
+  }
+  60% {
+    transform: translateX(-50%) translateY(-5px);
+  }
+}
+
+/* ===== CONTENT SLIDES - FIXED POSITIONING ===== */
+.slide-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 6rem 2rem 2rem;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 1;
+}
+
+.slide-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.chapter-badge {
+  display: inline-block;
+  background: var(--gradient-primary);
+  color: white;
+  padding: 0.5rem 1.5rem;
+  border-radius: 50px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.slide-title {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, var(--light-1) 0%, var(--light-2) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.slide-subtitle {
+  font-size: 1.25rem;
+  color: var(--light-3);
+}
+
+/* ===== CONCEPT CARDS ===== */
+.concept-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+}
+
+.concept-card {
+  background: rgba(255,255,255,0.05);
+  border-radius: var(--border-radius-lg);
+  border: 1px solid rgba(255,255,255,0.1);
+  overflow: hidden;
+  transition: var(--transition-normal);
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.concept-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.concept-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--primary);
+  box-shadow: var(--shadow-glow);
+}
+
+.card-header {
+  padding: 1.5rem;
+  background: rgba(255,255,255,0.02);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.card-icon {
+  font-size: 1.5rem;
+  width: 50px;
+  height: 50px;
+  background: var(--gradient-primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  color: white;
+}
+
+.card-header h3 {
+  font-size: 1.25rem;
+  color: var(--light-1);
+}
+
+.card-content {
+  padding: 1.5rem;
+}
+
+.card-content ul {
+  list-style: none;
+  margin-top: 1rem;
+}
+
+.card-content li {
+  padding: 0.5rem 0;
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.card-content li:before {
+  content: "•";
+  color: var(--primary);
+  position: absolute;
+  left: 0;
+  font-weight: bold;
+}
+
+/* ===== SLIDE 3: HTML CHARACTERISTICS ===== */
+.comparison-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  margin-top: 2rem;
+}
+
+.advantages-section, .disadvantages-section {
+  background: rgba(255,255,255,0.05);
+  border-radius: var(--border-radius-lg);
+  padding: 2rem;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.advantages-section {
+  border-left: 4px solid var(--success);
+}
+
+.disadvantages-section {
+  border-left: 4px solid var(--danger);
+}
+
+.section-title {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.features-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.feature-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: rgba(255,255,255,0.02);
+  border-radius: var(--border-radius-md);
+  border: 1px solid rgba(255,255,255,0.05);
+  transition: var(--transition-normal);
+}
+
+.feature-item:hover {
+  transform: translateX(10px);
+  border-color: rgba(255,255,255,0.1);
+}
+
+.feature-text h4 {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+  color: var(--light-1);
+}
+
+.feature-text p {
+  color: var(--light-3);
+  font-size: 0.95rem;
+}
+
+/* ===== SLIDE 4: HTML EDITORS ===== */
+.editors-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.editor-card {
+  background: rgba(255,255,255,0.05);
+  border-radius: var(--border-radius-lg);
+  padding: 2rem;
+  text-align: center;
+  border: 1px solid rgba(255,255,255,0.1);
+  transition: var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+}
+
+.editor-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--primary);
+  box-shadow: var(--shadow-glow);
+}
+
+.editor-card.featured {
+  border-color: var(--primary);
+  box-shadow: var(--shadow-glow);
+}
+
+.editor-card.featured:before {
+  content: "Recommended";
+  position: absolute;
+  top: 10px;
+  right: -30px;
+  background: var(--gradient-primary);
+  color: white;
+  padding: 0.25rem 2rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  transform: rotate(45deg);
+}
+
+.editor-icon {
+  width: 80px;
+  height: 80px;
+  background: var(--gradient-primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: white;
+}
+
+.editor-card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--light-1);
+}
+
+.editor-card p {
+  color: var(--light-3);
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+}
+
+.editor-tags {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.tag {
+  background: rgba(255,255,255,0.1);
+  color: var(--light-2);
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.file-extension-note {
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  border-radius: var(--border-radius-md);
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.note-icon {
+  width: 40px;
+  height: 40px;
+  background: var(--gradient-accent);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  color: white;
+  flex-shrink: 0;
+}
+
+.file-extension-note p {
+  margin: 0;
+  color: var(--light-2);
+}
+
+.file-extension-note code {
+  background: rgba(255,255,255,0.1);
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  color: var(--accent);
+}
+
+/* ===== SLIDE 5: HTML WITH CSS & JS ===== */
+.web-trio {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.tech-card {
+  background: rgba(255,255,255,0.05);
+  border-radius: var(--border-radius-lg);
+  padding: 2rem;
+  text-align: center;
+  border: 1px solid rgba(255,255,255,0.1);
+  transition: var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+}
+
+.tech-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-glow);
+}
+
+.html-card:hover {
+  border-color: var(--primary);
+}
+
+.css-card:hover {
+  border-color: var(--secondary);
+}
+
+.js-card:hover {
+  border-color: var(--warning);
+}
+
+.tech-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: white;
+}
+
+.html-card .tech-icon {
+  background: var(--gradient-primary);
+}
+
+.css-card .tech-icon {
+  background: var(--gradient-secondary);
+}
+
+.js-card .tech-icon {
+  background: var(--gradient-accent);
+}
+
+.tech-card h3 {
+  font-size: 1.75rem;
+  margin-bottom: 0.5rem;
+  color: var(--light-1);
+}
+
+.tech-role {
+  font-size: 1rem;
+  color: var(--light-3);
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.tech-card p {
+  color: var(--light-2);
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+}
+
+.tech-card ul {
+  list-style: none;
+  text-align: left;
+}
+
+.tech-card li {
+  padding: 0.5rem 0;
+  color: var(--light-3);
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.tech-card li:before {
+  content: "▸";
+  color: var(--primary);
+  position: absolute;
+  left: 0;
+  font-weight: bold;
+}
+
+.integration-example {
+  background: rgba(255,255,255,0.05);
+  border-radius: var(--border-radius-lg);
+  padding: 2rem;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.integration-example h4 {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+  color: var(--light-1);
+}
+
+.code-example {
+  background: var(--dark-2);
+  border-radius: var(--border-radius-md);
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.code-example pre {
+  margin: 0;
+  padding: 1.5rem;
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.code-example code {
+  color: #e2e8f0;
+}
+
+/* ===== SLIDE 6: FIRST HTML FILE ===== */
+.demo-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  flex: 1;
+}
+
+.code-editor, .demo-preview {
+  background: var(--dark-2);
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.editor-header, .preview-header {
+  background: var(--dark-3);
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.editor-dots, .browser-dots {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.editor-dots span, .browser-dots span {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.editor-dots span:nth-child(1) { background: #ef4444; }
+.editor-dots span:nth-child(2) { background: #f59e0b; }
+.editor-dots span:nth-child(3) { background: #10b981; }
+
+.browser-dots span:nth-child(1) { background: #ef4444; }
+.browser-dots span:nth-child(2) { background: #f59e0b; }
+.browser-dots span:nth-child(3) { background: #10b981; }
+
+.editor-title, .preview-url {
+  color: var(--light-2);
+  font-size: 0.9rem;
+}
+
+.editor-content, .preview-content {
+  padding: 1.5rem;
+  height: 300px;
+  overflow: auto;
+}
+
+.editor-content pre {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.preview-content {
+  background: white;
+  color: var(--dark-1);
+  font-family: system-ui, sans-serif;
+}
+
+.preview-content h1 {
+  color: #1e293b;
+  margin-bottom: 1rem;
+}
+
+.preview-content p {
+  color: #475569;
+  margin-bottom: 0.5rem;
+}
+
+.creation-steps {
+  background: rgba(255,255,255,0.05);
+  border-radius: var(--border-radius-lg);
+  padding: 2rem;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.creation-steps h3 {
+  font-size: 1.25rem;
+  margin-bottom: 1.5rem;
+  color: var(--light-1);
+}
+
+.steps-list {
+  list-style: none;
+  counter-reset: step-counter;
+}
+
+.steps-list li {
+  counter-increment: step-counter;
+  padding: 1rem 0 1rem 3rem;
+  position: relative;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.steps-list li:last-child {
+  border-bottom: none;
+}
+
+.steps-list li:before {
+  content: counter(step-counter);
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2rem;
+  height: 2rem;
+  background: var(--gradient-primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  color: white;
+  font-size: 0.9rem;
+}
+
+.steps-list code {
+  background: rgba(255,255,255,0.1);
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  color: var(--primary-light);
+}
+
+/* ===== SLIDE 7: HTML TAGS & ELEMENTS ===== */
+.tags-elements-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+}
+
+.tags-section, .elements-section, .attributes-section {
+  background: rgba(255,255,255,0.05);
+  border-radius: var(--border-radius-lg);
+  padding: 2rem;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.tags-section h3, .elements-section h3, .attributes-section h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: var(--light-1);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  padding-bottom: 0.5rem;
+}
+
+.concept-explanation {
+  margin-bottom: 2rem;
+}
+
+.concept-explanation p {
+  margin-bottom: 1rem;
+  color: var(--light-2);
+}
+
+.concept-explanation ul {
+  list-style: none;
+  margin-top: 1rem;
+}
+
+.concept-explanation li {
+  padding: 0.5rem 0;
+  position: relative;
+  padding-left: 1.5rem;
+  color: var(--light-3);
+}
+
+.concept-explanation li:before {
+  content: "•";
+  color: var(--primary);
+  position: absolute;
+  left: 0;
+  font-weight: bold;
+}
+
+.concept-explanation code {
+  background: rgba(255,255,255,0.1);
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  color: var(--primary-light);
+}
+
+.tag-examples, .empty-elements {
+  margin-top: 1.5rem;
+}
+
+.tag-examples h4, .empty-elements p {
+  margin-bottom: 1rem;
+  color: var(--light-2);
+}
+
+.tags-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tag-example {
+  background: rgba(99, 102, 241, 0.1);
+  color: var(--primary-light);
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius-sm);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  transition: var(--transition-fast);
+}
+
+.tag-example:hover {
+  background: rgba(99, 102, 241, 0.2);
+  transform: translateY(-2px);
+}
+
+.empty-elements {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.empty-tag {
+  background: rgba(16, 185, 129, 0.1);
+  color: var(--accent);
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius-sm);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  transition: var(--transition-fast);
+}
+
+.empty-tag:hover {
+  background: rgba(16, 185, 129, 0.2);
+  transform: translateY(-2px);
+}
+
+.attribute-example {
+  background: var(--dark-2);
+  border-radius: var(--border-radius-md);
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.1);
+  margin-top: 1rem;
+}
+
+.attribute-example h4 {
+  background: var(--dark-3);
+  padding: 1rem;
+  margin: 0;
+  font-size: 1rem;
+  color: var(--light-2);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.attribute-example pre {
+  margin: 0;
+  padding: 1.5rem;
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.attribute-example code {
+  color: #e2e8f0;
+}
+
+/* ===== SLIDE 8: RECAP & NEXT STEPS ===== */
+.completion-animation {
+  text-align: center;
+  margin-bottom: 3rem;
+  position: relative;
+}
+
+.confetti-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.confetti {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: var(--primary);
+  animation: confetti-fall 5s linear forwards;
+}
+
+@keyframes confetti-fall {
+  0% {
+    transform: translateY(-100px) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.trophy {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  animation: bounce-trophy 2s ease-in-out infinite;
+  width: 120px;
+  height: 120px;
+  background: var(--gradient-primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 2rem;
+  color: white;
+  font-weight: 700;
+}
+
+@keyframes bounce-trophy {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-20px) scale(1.1);
+  }
+}
+
+.completion-title {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.completion-subtitle {
+  font-size: 1.5rem;
+  color: var(--light-3);
+}
+
+.recap-section {
+  margin-bottom: 3rem;
+}
+
+.recap-section h3 {
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 1.5rem;
+  color: var(--light-1);
+}
+
+.recap-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.recap-item {
+  background: rgba(255,255,255,0.05);
+  border-radius: var(--border-radius-lg);
+  padding: 2rem;
+  text-align: center;
+  border: 1px solid rgba(255,255,255,0.1);
+  transition: var(--transition-normal);
+}
+
+.recap-item:hover {
+  transform: translateY(-5px);
+  border-color: var(--primary);
+  box-shadow: var(--shadow-glow);
+}
+
+.recap-icon {
+  width: 60px;
+  height: 60px;
+  background: var(--gradient-primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+  font-weight: 700;
+  color: white;
+  font-size: 0.9rem;
+}
+
+.recap-item h4 {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+  color: var(--light-1);
+}
+
+.recap-item p {
+  color: var(--light-3);
+  font-size: 0.9rem;
+}
+
+.practice-section {
+  margin-bottom: 3rem;
+}
+
+.practice-section h3 {
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 1.5rem;
+  color: var(--light-1);
+}
+
+.exercise-card {
+  background: rgba(255,255,255,0.05);
+  border-radius: var(--border-radius-lg);
+  padding: 2rem;
+  border: 1px solid rgba(255,255,255,0.1);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.exercise-card h4 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--light-1);
+  text-align: center;
+}
+
+.exercise-card p {
+  color: var(--light-2);
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.exercise-card ul {
+  list-style: none;
+  margin-bottom: 2rem;
+}
+
+.exercise-card li {
+  padding: 0.5rem 0;
+  color: var(--light-3);
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.exercise-card li:before {
+  content: "▸";
+  color: var(--primary);
+  position: absolute;
+  left: 0;
+  font-weight: bold;
+}
+
+.exercise-btn {
+  background: var(--gradient-primary);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: var(--border-radius-md);
+  cursor: pointer;
+  font-weight: 600;
+  transition: var(--transition-normal);
+  display: block;
+  margin: 0 auto;
+  width: 200px;
+}
+
+.exercise-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.cta-section {
+  text-align: center;
+}
+
+.cta-button {
+  background: var(--gradient-primary);
+  color: white;
+  border: none;
+  padding: 1.5rem 3rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  border-radius: 50px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  transition: var(--transition-normal);
+  box-shadow: var(--shadow-glow);
+}
+
+.cta-button:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-xl);
+}
+
+.cta-note {
+  color: var(--light-3);
+  font-size: 0.9rem;
+}
+
+/* ===== PRESENTATION CONTROLS ===== */
+.presentation-controls {
+  position: fixed;
+  top: 2rem;
+  right: 2rem;
+  z-index: 1000;
+  display: flex;
+  gap: 1rem;
+}
+
+.control-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(10px);
+  padding: 0.5rem;
+  border-radius: var(--border-radius-md);
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+.control-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--border-radius-sm);
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: var(--light-1);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition-fast);
+}
+
+.control-btn:hover {
+  background: var(--primary);
+  transform: translateY(-2px);
+}
+
+.control-btn.active {
+  background: var(--primary);
+  box-shadow: var(--shadow-glow);
+}
+
+.slide-counter {
+  color: var(--light-1);
+  font-weight: 600;
+  font-size: 0.9rem;
+  min-width: 50px;
+  text-align: center;
+}
+
+/* ===== BRANDED LASER POINTER ===== */
+.laser-pointer {
+  position: fixed;
+  width: 30px;
+  height: 30px;
+  pointer-events: none;
+  z-index: 10000;
+  opacity: 0;
+  transition: opacity 0.2s;
+  filter: drop-shadow(0 0 10px rgba(99, 102, 241, 0.8));
+}
+
+.laser-pointer.active {
+  opacity: 1;
+}
+
+.laser-pointer.logo-pointer {
+  background: transparent;
+  box-shadow: none;
+}
+
+.laser-pointer img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 50%;
+  animation: logo-pulse 2s ease-in-out infinite;
+}
+
+@keyframes logo-pulse {
+  0%, 100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 10px rgba(99, 102, 241, 0.8));
+  }
+  50% {
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 20px rgba(99, 102, 241, 1));
+  }
+}
+
+.laser-trail {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: var(--primary);
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0.6;
+  animation: trail-fade 1s ease-out forwards;
+}
+
+@keyframes trail-fade {
+  to {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+}
+
+/* ===== RECORDING INDICATOR ===== */
+.recording-indicator {
+  position: fixed;
+  top: 2rem;
+  left: 2rem;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(239, 68, 68, 0.2);
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  border: 1px solid rgba(239, 68, 68, 0.5);
+  color: var(--danger);
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.recording-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--danger);
+  border-radius: 50%;
+  animation: recording-pulse 1s ease-in-out infinite;
+}
+
+@keyframes recording-pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.2);
+  }
+}
+
+/* ===== PROGRESS INDICATOR ===== */
+.progress-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: rgba(255,255,255,0.1);
+  z-index: 1001;
+}
+
+.progress-bar {
+  height: 100%;
+  background: var(--gradient-primary);
+  width: 0%;
+  transition: width 0.3s ease;
+}
+
+/* ===== SLIDE INDICATOR ===== */
+.slide-indicator {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(10px);
+  padding: 1rem;
+  border-radius: var(--border-radius-md);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: var(--light-1);
+  font-weight: 600;
+}
+
+.slide-progress {
+  width: 100px;
+  height: 4px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.slide-progress-bar {
+  height: 100%;
+  background: var(--gradient-primary);
+  width: 12.5%;
+  transition: width 0.3s ease;
+}
+
+/* ===== PRESENTER NOTES ===== */
+.presenter-notes {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(10px);
+  border-top: 1px solid rgba(255,255,255,0.1);
+  z-index: 900;
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
+}
+
+.presenter-notes.show {
+  transform: translateY(0);
+}
+
+.notes-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.notes-header h4 {
+  color: var(--light-1);
+}
+
+.notes-toggle {
+  background: none;
+  border: none;
+  color: var(--light-2);
+  cursor: pointer;
+  padding: 0.5rem;
+  transition: var(--transition-fast);
+}
+
+.notes-toggle:hover {
+  color: var(--light-1);
+}
+
+.notes-content {
+  padding: 2rem;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.note {
+  display: none;
+  padding: 1rem;
+  background: rgba(255,255,255,0.05);
+  border-radius: var(--border-radius-md);
+  border-left: 4px solid var(--primary);
+}
+
+.note.active {
+  display: block;
+  animation: slideUp 0.3s ease;
+}
+
+/* ===== SOCIAL TICKER ===== */
+.social-ticker {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: var(--gradient-primary);
+  color: white;
+  padding: 1rem 0;
+  overflow: hidden;
+  z-index: 800;
+}
+
+.ticker-content {
+  display: flex;
+  animation: ticker-scroll 30s linear infinite;
+  white-space: nowrap;
+}
+
+.ticker-item {
+  padding: 0 2rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+@keyframes ticker-scroll {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 768px) {
+  .slide-content {
+    padding: 4rem 1rem 1rem;
+  }
+
+  .presentation-controls {
+    top: 1rem;
+    right: 1rem;
+    flex-direction: column;
+  }
+
+  .demo-container {
+    grid-template-columns: 1fr;
+  }
+
+  .concept-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .comparison-container {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .editors-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .web-trio {
+    grid-template-columns: 1fr;
+  }
+
+  .recap-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .slide-indicator {
+    bottom: 1rem;
+    right: 1rem;
+  }
+
+  .recording-indicator {
+    top: 1rem;
+    left: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .intro-content {
+    padding: 1rem;
+  }
+
+  .instructor-card {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .feature-item {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+/* ===== UTILITY CLASSES ===== */
+.visible {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.mb-1 { margin-bottom: 1rem; }
+.mb-2 { margin-bottom: 2rem; }
+.mb-3 { margin-bottom: 3rem; }
+
+.mt-1 { margin-top: 1rem; }
+.mt-2 { margin-top: 2rem; }
+.mt-3 { margin-top: 3rem; }
+/* ===== VIDEO 2 SPECIFIC STYLES ===== */
+
+/* Element Anatomy Visualization */
+.anatomy-card {
+  background: rgba(255,255,255,0.05);
+  border-radius: var(--border-radius-lg);
+  padding: 2rem;
+  border: 1px solid rgba(255,255,255,0.1);
+  margin-bottom: 2rem;
+}
+
+.anatomy-visual {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.anatomy-part {
+  padding: 1.5rem;
+  border-radius: var(--border-radius-md);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  transition: var(--transition-normal);
+}
+
+.anatomy-part:hover {
+  transform: translateX(10px);
+}
+
+.start-tag {
+  background: rgba(99, 102, 241, 0.1);
+  border: 1px solid rgba(99, 102, 241, 0.3);
+}
+
+.content {
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  margin-left: 2rem;
+}
+
+.end-tag {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.part-label {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--light-2);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.anatomy-note {
+  text-align: center;
+  color: var(--light-3);
+  font-style: italic;
+  margin-top: 1rem;
+}
+
+/* Element Types */
+.element-types {
+  margin-top: 3rem;
+}
+
+.types-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-top: 1.5rem;
+}
+
+.type-card {
+  background: rgba(255,255,255,0.05);
+  border-radius: var(--border-radius-lg);
+  padding: 1.5rem;
+  border: 1px solid rgba(255,255,255,0.1);
+  transition: var(--transition-normal);
+}
+
+.type-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--primary);
+}
+
+.type-card h4 {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+  color: var(--light-1);
+}
+
+.type-card p {
+  color: var(--light-3);
+  margin-bottom: 1.5rem;
+  font-size: 0.95rem;
+}
+
+.type-examples {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.type-examples code {
+  background: rgba(255,255,255,0.1);
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--border-radius-sm);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--primary-light);
+}
+
+/* Self-Closing Tags */
+.self-closing-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+}
+
+.syntax-comparison {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin: 2rem 0;
+}
+
+.syntax-item {
+  background: rgba(255,255,255,0.05);
+  border-radius: var(--border-radius-lg);
+  padding: 1.5rem;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.syntax-item h4 {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  color: var(--light-1);
+  text-align: center;
+}
+
+.syntax-item p {
+  color: var(--light-3);
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+}
+
+.void-elements-grid {
+  margin-top: 2rem;
+}
+
+.void-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.void-card {
+  background: rgba(255,255,255,0.05);
+  border-radius: var(--border-radius-md);
+  padding: 1.5rem;
+  text-align: center;
+  border: 1px solid rgba(255,255,255,0.1);
+  transition: var(--transition-normal);
+}
+
+.void-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--primary);
+}
+
+.void-icon {
+  width: 50px;
+  height: 50px;
+  background: var(--gradient-primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+  font-weight: 700;
+  color: white;
+  font-size: 0.9rem;
+}
+
+.void-card h4 {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+  color: var(--light-1);
+}
+
+.void-card p {
+  color: var(--light-3);
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.void-card code {
+  background: rgba(255,255,255,0.1);
+  padding: 0.5rem;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--primary-light);
+}
+
+/* Attributes */
+.attributes-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+}
+
+.attributes-intro {
+  background: rgba(255,255,255,0.05);
+  border-radius: var(--border-radius-lg);
+  padding: 2rem;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.attribute-syntax {
+  margin-top: 2rem;
+}
+
+.attribute-syntax ul {
+  list-style: none;
+  margin-top: 1rem;
+}
+
+.attribute-syntax li {
+  padding: 0.5rem 0;
+  position: relative;
+  padding-left: 1.5rem;
+  color: var(--light-3);
+}
+
+.attribute-syntax li:before {
+  content: "•";
+  color: var(--primary);
+  position: absolute;
+  left: 0;
+  font-weight: bold;
+}
+
+.common-attributes {
+  margin-top: 2rem;
+}
+
+.attributes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.attribute-item {
+  background: rgba(255,255,255,0.05);
+  border-radius: var(--border-radius-md);
+  padding: 1.5rem;
+  border: 1px solid rgba(255,255,255,0.1);
+  transition: var(--transition-normal);
+}
+
+.attribute-item:hover {
+  transform: translateY(-3px);
+  border-color: var(--primary);
+}
+
+.attribute-item h4 {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+  color: var(--light-1);
+}
+
+.attribute-item p {
+  color: var(--light-3);
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.attribute-item code {
+  background: rgba(255,255,255,0.1);
+  padding: 0.5rem;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--primary-light);
+  display: block;
+  text-align: center;
+}
+
+/* Demo Explanation */
+.demo-explanation {
+  margin-top: 2rem;
+}
+
+.concepts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.concept-point {
+  background: rgba(255,255,255,0.05);
+  border-radius: var(--border-radius-md);
+  padding: 1.5rem;
+  text-align: center;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.concept-point h4 {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+  color: var(--light-1);
+}
+
+.concept-point p {
+  color: var(--light-3);
+  font-size: 0.9rem;
+}
+
+/* Code Demonstration */
+.code-demonstration {
+  margin-top: 2rem;
+  background: rgba(255,255,255,0.05);
+  border-radius: var(--border-radius-lg);
+  padding: 2rem;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.code-demonstration h3 {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+  color: var(--light-1);
+  text-align: center;
+}
+
+/* Responsive Design for Video 2 */
+@media (max-width: 768px) {
+  .syntax-comparison {
+    grid-template-columns: 1fr;
+  }
+  
+  .anatomy-visual {
+    gap: 0.5rem;
+  }
+  
+  .content {
+    margin-left: 1rem;
+  }
+  
+  .types-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .void-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .attributes-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .concepts-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .void-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .anatomy-part {
+    padding: 1rem;
+  }
+}
+    /* Images-specific styles */
+    .img-tag-overview {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin: 2rem 0;
+    }
+    
+    .img-concept-card {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 2rem;
+      border-radius: 12px;
+      border-left: 4px solid #4a90e2;
+    }
+    
+    .concept-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .concept-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 10px;
+      background: #4a90e2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+    
+    .code-example {
+      background: rgba(0, 0, 0, 0.2);
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin: 1rem 0;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+    
+    .live-preview {
+      background: white;
+      color: #333;
+      padding: 1.5rem;
+      border-radius: 6px;
+      margin-top: 1rem;
+      text-align: center;
+    }
+    
+    .attributes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+    
+    .attribute-card {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 1.5rem;
+      border-radius: 12px;
+      text-align: center;
+    }
+    
+    .attribute-icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: #4a90e2;
+    }
+    
+    .attribute-preview {
+      background: white;
+      padding: 1rem;
+      border-radius: 4px;
+      margin-top: 1rem;
+    }
+    
+    .interactive-demo {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin: 2rem 0;
+    }
+    
+    .demo-editor, .demo-preview {
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .demo-header {
+      background: #2c3e50;
+      color: white;
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .demo-title {
+      font-weight: 600;
+    }
+    
+    .demo-actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+    
+    .demo-action {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+    
+    .demo-action.red { background: #ff5f57; }
+    .demo-action.yellow { background: #ffbd2e; }
+    .demo-action.green { background: #28ca42; }
+    
+    .editor-content {
+      background: #1a1a1a;
+      color: #f8f8f2;
+      padding: 1.5rem;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      height: 400px;
+      overflow-y: auto;
+    }
+    
+    .preview-content {
+      background: white;
+      padding: 1.5rem;
+      height: 400px;
+      overflow-y: auto;
+      color: #333;
+    }
+    
+    .control-panel {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin: 1.5rem 0;
+      padding: 1.5rem;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+    }
+    
+    .control-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    
+    .control-label {
+      font-weight: 600;
+      color: #4a90e2;
+    }
+    
+    .control-input {
+      padding: 0.5rem;
+      border: 1px solid #4a90e2;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+    }
+    
+    .control-btn {
+      padding: 0.75rem 1rem;
+      background: #4a90e2;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    
+    .control-btn:hover {
+      background: #3a7bc8;
+    }
+    
+    .alignment-demo {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin: 2rem 0;
+    }
+    
+    .alignment-examples {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+    
+    .alignment-card {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 1.5rem;
+      border-radius: 8px;
+      text-align: center;
+    }
+    
+    .image-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+    
+    .gallery-item {
+      background: white;
+      padding: 1rem;
+      border-radius: 8px;
+      text-align: center;
+    }
+    
+    .demo-image {
+      max-width: 100%;
+      height: auto;
+      border-radius: 4px;
+    }
+    
+    .placeholder-image {
+      width: 100px;
+      height: 100px;
+      background: linear-gradient(45deg, #4a90e2, #67b26f);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      margin: 0 auto;
+    }
+    
+    .best-practices {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+    
+    .practice-card {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 1.5rem;
+      border-radius: 12px;
+      text-align: center;
+    }
+    
+    .practice-icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: #4a90e2;
+    }
+    
+    .responsive-demo {
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      margin: 2rem 0;
+    }
+    
+    @media (max-width: 768px) {
+      .interactive-demo,
+      .alignment-demo {
+        grid-template-columns: 1fr;
+      }
+      
+      .control-panel {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Presentation Controls -->
+  <div class="presentation-controls">
+  <div class="control-group">
+      <button class="control-btn" id="slidePrev" title="Previous Slide (←)">
+        <i class="fas fa-chevron-left"></i>
+      </button>
+      <span class="slide-counter" id="slideCounter">1/8</span>
+      <button class="control-btn" id="slideNext" title="Next Slide (→)">
+        <i class="fas fa-chevron-right"></i>
+      </button>
+    </div>
+    <div class="control-group">
+      <button class="control-btn" id="toggleFullscreen" title="Fullscreen (F)">
+        <i class="fas fa-expand"></i>
+      </button>
+      <button class="control-btn" id="toggleLaser" title="Laser Pointer (L)">
+        <i class="fas fa-bullseye"></i>
+      </button>
+      <button class="control-btn" id="toggleTheme" title="Toggle Theme (T)">
+        <i class="fas fa-moon"></i>
+      </button>
+      <button class="control-btn" id="toggleGrid" title="Toggle Grid (G)">
+        <i class="fas fa-th"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Laser Pointer -->
+  <div class="laser-pointer" id="laserPointer"></div>
+
+  <!-- Recording Indicator -->
+  <div class="recording-indicator" id="recordingIndicator">
+    <div class="recording-dot"></div>
+    <span>REC</span>
+  </div>
+
+  <!-- Progress Indicator -->
+  <div class="progress-container">
+    <div class="progress-bar" id="progressBar"></div>
+  </div>
+
+  <!-- Slide Counter -->
+  <div class="slide-indicator">
+    <span id="currentSlide">1</span>
+    <div class="slide-progress">
+      <div class="slide-progress-bar"></div>
+    </div>
+    <span id="totalSlides">8</span>
+  </div>
+
+  <!-- ===== CINEMATIC INTRO ===== -->
+  <section class="slide intro-slide active" data-slide="1">
+    <div class="cinematic-overlay"></div>
+    <div class="particles-container" id="particles"></div>
+    
+    <div class="intro-content">
+      <div class="logo-reveal">
+        <div class="logo-glow"></div>
+        <img src="logodev2.jpg" alt="DevVoltz Academy" class="cinematic-logo">
+      </div>
+      
+      <div class="title-sequence">
+        <h1 class="main-title">
+          <span class="title-word">HTML Images</span>
+          <span class="title-word">Visual Content</span>
+          <span class="title-word">Web Graphics</span>
+        </h1>
+        <div class="subtitle-reveal">
+          <p class="course-subtitle">Part 8: Mastering Image Implementation</p>
+          <div class="title-underline"></div>
+        </div>
+      </div>
+
+      <div class="instructor-card">
+        <div class="instructor-avatar">
+          <img src="logodev1.jpg" alt="Instructor">
+        </div>
+        <div class="instructor-info">
+          <h3>Simegnew Destew</h3>
+          <p>Senior Full-Stack Developer</p>
+        </div>
+      </div>
+
+      <div class="start-pulse">
+        <button class="start-button" id="startCourse">
+          <span>Start Learning</span>
+          <div class="button-glow"></div>
+        </button>
+      </div>
+    </div>
+
+    <div class="scroll-indicator">
+      <div class="mouse">
+        <div class="wheel"></div>
+      </div>
+      <div class="arrow"></div>
+    </div>
+  </section>
+
+  <!-- ===== IMG TAG OVERVIEW ===== -->
+  <section class="slide content-slide" data-slide="2">
+    <div class="slide-background">
+      <div class="bg-pattern"></div>
+    </div>
+    
+    <div class="slide-content">
+      <div class="slide-header">
+        <div class="chapter-badge">Part 8: HTML Images</div>
+        <h2 class="slide-title">The &lt;img&gt; Tag</h2>
+        <div class="slide-subtitle">Adding Visual Content to Web Pages</div>
+      </div>
+
+      <div class="img-tag-overview">
+        <div class="img-concept-card">
+          <div class="concept-header">
+            <div class="concept-icon">IMG</div>
+            <div>
+              <h3>What is &lt;img&gt;?</h3>
+              <p>The image embedding element</p>
+            </div>
+          </div>
+          
+          <p>The <code>&lt;img&gt;</code> tag is used to embed images in web pages. It's an <strong>empty element</strong> (no closing tag) that creates a holding space for referenced images.</p>
+          
+          <div class="code-example">
+            &lt;!-- Basic image syntax --&gt;<br>
+            &lt;img src="image.jpg" alt="Description"&gt;
+          </div>
+          
+          <div class="live-preview">
+            <div class="placeholder-image">IMG</div>
+            <p><small>Image placeholder - actual image would display here</small></p>
+          </div>
+        </div>
+
+        <div class="img-concept-card">
+          <div class="concept-header">
+            <div class="concept-icon">🚀</div>
+            <div>
+              <h3>Key Characteristics</h3>
+              <p>Understanding image behavior</p>
+            </div>
+          </div>
+          
+          <div class="features-grid">
+            <div class="feature-item">
+              <div class="feature-text">
+                <h4>Inline Element</h4>
+                <p>Images flow with text content</p>
+              </div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-text">
+                <h4>Replaced Element</h4>
+                <p>Content is replaced by external source</p>
+              </div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-text">
+                <h4>Empty Element</h4>
+                <p>No content between opening and closing tags</p>
+              </div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-text">
+                <h4>Self-contained</h4>
+                <p>Doesn't affect surrounding content structure</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="code-example">
+            &lt;!-- Images in context --&gt;<br>
+            &lt;p&gt;<br>
+            &nbsp;&nbsp;This is text with an &lt;img src="icon.png" alt="icon"&gt; image inline.<br>
+            &lt;/p&gt;
+          </div>
+        </div>
+      </div>
+
+      <div class="img-syntax">
+        <h3>Basic Image Syntax Rules:</h3>
+        <div class="concept-explanation">
+          <ul>
+            <li><strong>Always include the <code>src</code> attribute</strong> - specifies the image path</li>
+            <li><strong>Always include the <code>alt</code> attribute</strong> - provides alternative text</li>
+            <li><strong>No closing tag needed</strong> - it's a void element</li>
+            <li><strong>Self-contained</strong> - doesn't wrap other content</li>
+            <li><strong>Supports multiple attributes</strong> - for styling and behavior</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== IMAGE ATTRIBUTES ===== -->
+  <section class="slide content-slide" data-slide="3">
+    <div class="slide-background">
+      <div class="bg-grid"></div>
+    </div>
+
+    <div class="slide-content">
+      <div class="slide-header">
+        <div class="chapter-badge">Part 8: HTML Images</div>
+        <h2 class="slide-title">Image Attributes</h2>
+        <div class="slide-subtitle">Controlling Image Behavior & Appearance</div>
+      </div>
+
+      <div class="attributes-grid">
+        <div class="attribute-card">
+          <div class="attribute-icon">📍</div>
+          <h3>src (Source)</h3>
+          <p>Specifies the image file path</p>
+          
+          <div class="code-example">
+            &lt;img src="images/photo.jpg"&gt;<br>
+            &lt;img src="../assets/icon.png"&gt;<br>
+            &lt;img src="https://example.com/image.jpg"&gt;
+          </div>
+          
+          <div class="attribute-preview">
+            <div class="placeholder-image" style="background: linear-gradient(45deg, #ff6b6b, #ffa726);">SRC</div>
+          </div>
+          
+          <div class="attribute-notes">
+            <h4>Path Types:</h4>
+            <ul>
+              <li><strong>Relative:</strong> images/photo.jpg</li>
+              <li><strong>Absolute:</strong> /images/photo.jpg</li>
+              <li><strong>URL:</strong> https://example.com/image.jpg</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="attribute-card">
+          <div class="attribute-icon">📝</div>
+          <h3>alt (Alternative Text)</h3>
+          <p>Text description for accessibility</p>
+          
+          <div class="code-example">
+            &lt;img src="cat.jpg" alt="Fluffy orange cat sleeping"&gt;<br>
+            &lt;img src="logo.png" alt="Company logo"&gt;<br>
+            &lt;img src="decorative.jpg" alt=""&gt;
+          </div>
+          
+          <div class="attribute-preview">
+            <div class="placeholder-image" style="background: linear-gradient(45deg, #4ecdc4, #44a08d);">ALT</div>
+            <p><small>Screen readers read the alt text</small></p>
+          </div>
+          
+          <div class="attribute-notes">
+            <h4>When to Use:</h4>
+            <ul>
+              <li><strong>Descriptive:</strong> For meaningful images</li>
+              <li><strong>Empty:</strong> For decorative images</li>
+              <li><strong>Required:</strong> Always include alt attribute</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="attribute-card">
+          <div class="attribute-icon">📐</div>
+          <h3>width & height</h3>
+          <p>Sets image dimensions</p>
+          
+          <div class="code-example">
+            &lt;img src="photo.jpg" width="300" height="200"&gt;<br>
+            &lt;img src="icon.png" width="50"&gt;<br>
+            &lt;img src="banner.jpg" height="150"&gt;
+          </div>
+          
+          <div class="attribute-preview">
+            <div class="placeholder-image" style="width: 150px; height: 100px; background: linear-gradient(45deg, #67b26f, #4ca2cd);">150×100</div>
+          </div>
+          
+          <div class="attribute-notes">
+            <h4>Best Practices:</h4>
+            <ul>
+              <li>Use for layout stability</li>
+              <li>Maintain aspect ratio</li>
+              <li>Use CSS for responsive design</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="attribute-card">
+          <div class="attribute-icon">🎯</div>
+          <h3>title (Tooltip)</h3>
+          <p>Additional information on hover</p>
+          
+          <div class="code-example">
+            &lt;img src="product.jpg" title="Click to enlarge"&gt;<br>
+            &lt;img src="map.jpg" title="Interactive map - click areas"&gt;
+          </div>
+          
+          <div class="attribute-preview">
+            <div class="placeholder-image" style="background: linear-gradient(45deg, #4776E6, #8E54E9);" title="This is a tooltip!">TITLE</div>
+            <p><small>Hover over the image to see tooltip</small></p>
+          </div>
+          
+          <div class="attribute-notes">
+            <h4>Usage Notes:</h4>
+            <ul>
+              <li>Not a replacement for alt text</li>
+              <li>Provides supplementary info</li>
+              <li>Shown on mouse hover</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="additional-attributes">
+        <h3>Additional Attributes:</h3>
+        <div class="concept-cards">
+          <div class="concept-card">
+            <div class="card-header">
+              <div class="card-icon">🖼️</div>
+              <h3>loading</h3>
+            </div>
+            <div class="card-content">
+              <p>Controls lazy loading behavior</p>
+              <div class="code-example">
+                &lt;img src="large.jpg" loading="lazy"&gt;<br>
+                &lt;img src="hero.jpg" loading="eager"&gt;
+              </div>
+              <ul>
+                <li><code>lazy</code>: Load when near viewport</li>
+                <li><code>eager</code>: Load immediately</li>
+                <li>Improves page performance</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="concept-card">
+            <div class="card-header">
+              <div class="card-icon">🎨</div>
+              <h3>style</h3>
+            </div>
+            <div class="card-content">
+              <p>Inline CSS styling</p>
+              <div class="code-example">
+                &lt;img src="photo.jpg" style="border: 2px solid blue;"&gt;<br>
+                &lt;img src="icon.png" style="border-radius: 50%;"&gt;
+              </div>
+              <ul>
+                <li>Quick styling without external CSS</li>
+                <li>Use sparingly for maintainability</li>
+                <li>Good for one-off styles</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="concept-card">
+            <div class="card-header">
+              <div class="card-icon">🔗</div>
+              <h3>usemap</h3>
+            </div>
+            <div class="card-content">
+              <p>Creates image maps with clickable areas</p>
+              <div class="code-example">
+                &lt;img src="map.jpg" usemap="#imageMap"&gt;<br>
+                &lt;map name="imageMap"&gt;<br>
+                &nbsp;&nbsp;&lt;area shape="rect" coords="0,0,50,50" href="link1.html"&gt;<br>
+                &lt;/map&gt;
+              </div>
+              <ul>
+                <li>Defines clickable regions</li>
+                <li>Use with &lt;map&gt; element</li>
+                <li>Great for interactive images</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== INTERACTIVE IMAGE BUILDER ===== -->
+  <section class="slide demo-slide" data-slide="4">
+    <div class="slide-background">
+      <div class="bg-code"></div>
+    </div>
+
+    <div class="slide-content">
+      <div class="slide-header">
+        <div class="chapter-badge">Part 8: HTML Images</div>
+        <h2 class="slide-title">Interactive Image Builder</h2>
+        <div class="slide-subtitle">Create and Customize Images in Real-Time</div>
+      </div>
+
+      <div class="interactive-demo">
+        <div class="demo-editor">
+          <div class="demo-header">
+            <div class="demo-title">Image Configuration</div>
+            <div class="demo-actions">
+              <div class="demo-action red"></div>
+              <div class="demo-action yellow"></div>
+              <div class="demo-action green"></div>
+            </div>
+          </div>
+          <div class="editor-content" id="imageConfig">
+&lt;!-- Configure your image here --&gt;
+&lt;img src="https://picsum.photos/400/300" 
+     alt="Sample image from picsum"
+     width="400"
+     height="300"&gt;
+          </div>
+        </div>
+
+        <div class="demo-preview">
+          <div class="demo-header">
+            <div class="demo-title">Live Preview</div>
+            <div class="demo-actions">
+              <div class="demo-action red"></div>
+              <div class="demo-action yellow"></div>
+              <div class="demo-action green"></div>
+            </div>
+          </div>
+          <div class="preview-content" id="imagePreview">
+            <!-- Preview will be generated by JavaScript -->
+          </div>
+        </div>
+      </div>
+
+      <div class="control-panel">
+        <div class="control-group">
+          <label class="control-label">Image Source:</label>
+          <select class="control-input" id="imageSource">
+            <option value="https://picsum.photos/400/300">Random Image 1</option>
+            <option value="https://picsum.photos/400/301">Random Image 2</option>
+            <option value="https://picsum.photos/400/302">Random Image 3</option>
+            <option value="placeholder">Color Placeholder</option>
+          </select>
+        </div>
+        
+        <div class="control-group">
+          <label class="control-label">Alt Text:</label>
+          <input type="text" class="control-input" id="altText" value="Sample image from picsum" placeholder="Describe the image...">
+        </div>
+        
+        <div class="control-group">
+          <label class="control-label">Width:</label>
+          <input type="range" class="control-input" id="imageWidth" min="100" max="800" value="400">
+          <span id="widthValue">400px</span>
+        </div>
+        
+        <div class="control-group">
+          <label class="control-label">Height:</label>
+          <input type="range" class="control-input" id="imageHeight" min="100" max="600" value="300">
+          <span id="heightValue">300px</span>
+        </div>
+        
+        <div class="control-group">
+          <label class="control-label">Border:</label>
+          <input type="range" class="control-input" id="imageBorder" min="0" max="10" value="0">
+          <span id="borderValue">0px</span>
+        </div>
+        
+        <div class="control-group">
+          <label class="control-label">Border Color:</label>
+          <input type="color" class="control-input" id="borderColor" value="#4a90e2">
+        </div>
+        
+        <button class="control-btn" id="generateImage">Update Image</button>
+      </div>
+
+      <div class="demo-instructions">
+        <h3>How to Use:</h3>
+        <ol>
+          <li>Select an image source or use the placeholder</li>
+          <li>Add descriptive alt text for accessibility</li>
+          <li>Adjust width and height using sliders</li>
+          <li>Add borders with custom colors</li>
+          <li>Click "Update Image" to see changes</li>
+          <li>Copy the generated HTML code for your projects</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== IMAGE ALIGNMENT ===== -->
+  <section class="slide content-slide" data-slide="5">
+    <div class="slide-background">
+      <div class="bg-features"></div>
+    </div>
+
+    <div class="slide-content">
+      <div class="slide-header">
+        <div class="chapter-badge">Part 8: HTML Images</div>
+        <h2 class="slide-title">Image Alignment</h2>
+        <div class="slide-subtitle">Positioning Images with Text</div>
+      </div>
+
+      <div class="alignment-demo">
+        <div class="alignment-examples">
+          <div class="alignment-card">
+            <h4>Left Alignment</h4>
+            <div class="live-preview" style="text-align: left;">
+              <div class="placeholder-image" style="float: left; margin: 0 1rem 1rem 0; background: linear-gradient(45deg, #ff6b6b, #ee5a52);">LEFT</div>
+              <p>This image is aligned to the left. Text flows around it on the right side. This is commonly used for profile pictures or illustrations that complement the text content.</p>
+            </div>
+            <div class="code-example">
+              &lt;img src="image.jpg" style="float: left; margin: 0 1rem 1rem 0;"&gt;
+            </div>
+          </div>
+
+          <div class="alignment-card">
+            <h4>Right Alignment</h4>
+            <div class="live-preview" style="text-align: left;">
+              <div class="placeholder-image" style="float: right; margin: 0 0 1rem 1rem; background: linear-gradient(45deg, #4ecdc4, #44a08d);">RIGHT</div>
+              <p>This image is aligned to the right. Text flows around it on the left side. This alignment works well for pull quotes, side notes, or decorative elements.</p>
+            </div>
+            <div class="code-example">
+              &lt;img src="image.jpg" style="float: right; margin: 0 0 1rem 1rem;"&gt;
+            </div>
+          </div>
+
+          <div class="alignment-card">
+            <h4>Center Alignment</h4>
+            <div class="live-preview">
+              <div class="placeholder-image" style="margin: 0 auto; background: linear-gradient(45deg, #67b26f, #4ca2cd);">CENTER</div>
+              <p>This image is centered on the page. Centered images work well for hero images, logos, or any content that should be the main focus of attention.</p>
+            </div>
+            <div class="code-example">
+              &lt;div style="text-align: center;"&gt;<br>
+              &nbsp;&nbsp;&lt;img src="image.jpg"&gt;<br>
+              &lt;/div&gt;
+            </div>
+          </div>
+
+          <div class="alignment-card">
+            <h4>Inline Alignment</h4>
+            <div class="live-preview">
+              <p>This text contains an <div class="placeholder-image" style="display: inline-block; width: 30px; height: 20px; margin: 0 5px; background: linear-gradient(45deg, #4776E6, #8E54E9); vertical-align: middle;">INL</div> inline image. Inline images flow with the text and are useful for icons, emojis, or small decorative elements within sentences.</p>
+            </div>
+            <div class="code-example">
+              &lt;img src="icon.png" style="vertical-align: middle;"&gt;
+            </div>
+          </div>
+        </div>
+
+        <div class="alignment-techniques">
+          <h3>Alignment Methods:</h3>
+          
+          <div class="concept-cards">
+            <div class="concept-card">
+              <div class="card-header">
+                <div class="card-icon">🎯</div>
+                <h3>Float Property</h3>
+              </div>
+              <div class="card-content">
+                <p>Traditional method for text wrapping</p>
+                <div class="code-example">
+                  &lt;img src="photo.jpg" style="float: left;"&gt;<br>
+                  &lt;img src="photo.jpg" style="float: right;"&gt;
+                </div>
+                <ul>
+                  <li>Text flows around the image</li>
+                  <li>Requires clearing after floated elements</li>
+                  <li>Classic web design technique</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="concept-card">
+              <div class="card-header">
+                <div class="card-icon">📐</div>
+                <h3>CSS Flexbox</h3>
+              </div>
+              <div class="card-content">
+                <p>Modern layout for alignment</p>
+                <div class="code-example">
+                  .container {<br>
+                  &nbsp;&nbsp;display: flex;<br>
+                  &nbsp;&nbsp;justify-content: center;<br>
+                  &nbsp;&nbsp;align-items: center;<br>
+                  }
+                </div>
+                <ul>
+                  <li>Great for centering</li>
+                  <li>Responsive and flexible</li>
+                  <li>Modern standard</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="concept-card">
+              <div class="card-header">
+                <div class="card-icon">🎨</div>
+                <h3>CSS Grid</h3>
+              </div>
+              <div class="card-content">
+                <p>Advanced layout control</p>
+                <div class="code-example">
+                  .gallery {<br>
+                  &nbsp;&nbsp;display: grid;<br>
+                  &nbsp;&nbsp;grid-template-columns: repeat(3, 1fr);<br>
+                  &nbsp;&nbsp;gap: 1rem;<br>
+                  }
+                </div>
+                <ul>
+                  <li>Perfect for image galleries</li>
+                  <li>Precise control over placement</li>
+                  <li>Two-dimensional layouts</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== IMAGE STYLING & BORDERS ===== -->
+  <section class="slide content-slide" data-slide="6">
+    <div class="slide-background">
+      <div class="bg-quiz"></div>
+    </div>
+
+    <div class="slide-content">
+      <div class="slide-header">
+        <div class="chapter-badge">Part 8: HTML Images</div>
+        <h2 class="slide-title">Image Styling & Borders</h2>
+        <div class="slide-subtitle">Enhancing Visual Appearance</div>
+      </div>
+
+      <div class="image-gallery">
+        <div class="gallery-item">
+          <h4>Basic Border</h4>
+          <div class="placeholder-image" style="border: 2px solid #4a90e2;">BORDER</div>
+          <div class="code-example">
+            border: 2px solid #4a90e2;
+          </div>
+        </div>
+
+        <div class="gallery-item">
+          <h4>Rounded Corners</h4>
+          <div class="placeholder-image" style="border: 2px solid #67b26f; border-radius: 15px;">ROUNDED</div>
+          <div class="code-example">
+            border-radius: 15px;
+          </div>
+        </div>
+
+        <div class="gallery-item">
+          <h4>Shadow Effect</h4>
+          <div class="placeholder-image" style="box-shadow: 0 4px 8px rgba(0,0,0,0.2);">SHADOW</div>
+          <div class="code-example">
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+          </div>
+        </div>
+
+        <div class="gallery-item">
+          <h4>Circular Image</h4>
+          <div class="placeholder-image" style="border-radius: 50%; border: 3px solid #ff6b6b;">CIRCLE</div>
+          <div class="code-example">
+            border-radius: 50%;
+          </div>
+        </div>
+
+        <div class="gallery-item">
+          <h4>Thick Border</h4>
+          <div class="placeholder-image" style="border: 8px double #4776E6;">THICK</div>
+          <div class="code-example">
+            border: 8px double #4776E6;
+          </div>
+        </div>
+
+        <div class="gallery-item">
+          <h4>Gradient Border</h4>
+          <div class="placeholder-image" style="border: 4px solid; border-image: linear-gradient(45deg, #ff6b6b, #4ecdc4) 1;">GRADIENT</div>
+          <div class="code-example">
+            border-image: linear-gradient(45deg, #ff6b6b, #4ecdc4) 1;
+          </div>
+        </div>
+      </div>
+
+      <div class="spacing-demo">
+        <h3>Image Spacing & Margins:</h3>
+        <div class="live-preview">
+          <div class="placeholder-image" style="margin: 20px; padding: 15px; border: 2px solid #4a90e2; background: white;">MARGIN</div>
+          <p><strong>Margin:</strong> Space outside the border (creates separation from other elements)</p>
+          <p><strong>Padding:</strong> Space inside the border (between content and border)</p>
+        </div>
+        
+        <div class="code-example">
+          &lt;img src="photo.jpg" style="margin: 20px; padding: 15px; border: 2px solid blue;"&gt;
+        </div>
+      </div>
+
+      <div class="css-styling-examples">
+        <h3>Common CSS Image Styles:</h3>
+        <div class="concept-cards">
+          <div class="concept-card">
+            <div class="card-header">
+              <div class="card-icon">🎭</div>
+              <h3>Filters & Effects</h3>
+            </div>
+            <div class="card-content">
+              <div class="code-example">
+                /* Grayscale */<br>
+                filter: grayscale(100%);<br><br>
+                /* Blur */<br>
+                filter: blur(2px);<br><br>
+                /* Brightness */<br>
+                filter: brightness(150%);<br><br>
+                /* Multiple filters */<br>
+                filter: contrast(120%) saturate(150%);
+              </div>
+            </div>
+          </div>
+
+          <div class="concept-card">
+            <div class="card-header">
+              <div class="card-icon">🔄</div>
+              <h3>Transforms</h3>
+            </div>
+            <div class="card-content">
+              <div class="code-example">
+                /* Rotation */<br>
+                transform: rotate(15deg);<br><br>
+                /* Scale */<br>
+                transform: scale(1.1);<br><br>
+                /* Skew */<br>
+                transform: skewX(10deg);<br><br>
+                /* Multiple transforms */<br>
+                transform: rotate(5deg) scale(1.05);
+              </div>
+            </div>
+          </div>
+
+          <div class="concept-card">
+            <div class="card-header">
+              <div class="card-icon">💫</div>
+              <h3>Transitions</h3>
+            </div>
+            <div class="card-content">
+              <div class="code-example">
+                img {<br>
+                &nbsp;&nbsp;transition: all 0.3s ease;<br>
+                }<br><br>
+                img:hover {<br>
+                &nbsp;&nbsp;transform: scale(1.1);<br>
+                &nbsp;&nbsp;box-shadow: 0 8px 16px rgba(0,0,0,0.3);<br>
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== BEST PRACTICES ===== -->
+  <section class="slide content-slide" data-slide="7">
+    <div class="slide-background">
+      <div class="bg-code"></div>
+    </div>
+
+    <div class="slide-content">
+      <div class="slide-header">
+        <div class="chapter-badge">Part 8: HTML Images</div>
+        <h2 class="slide-title">Best Practices</h2>
+        <div class="slide-subtitle">Creating Effective & Accessible Images</div>
+      </div>
+
+      <div class="best-practices">
+        <div class="practice-card">
+          <div class="practice-icon">♿</div>
+          <h4>Always Use Alt Text</h4>
+          <p>Essential for screen readers and SEO. Use empty alt="" for decorative images.</p>
+        </div>
+
+        <div class="practice-card">
+          <div class="practice-icon">⚡</div>
+          <h4>Optimize File Size</h4>
+          <p>Compress images for faster loading. Use modern formats like WebP when possible.</p>
+        </div>
+
+        <div class="practice-card">
+          <div class="practice-icon">📐</div>
+          <h4>Set Dimensions</h4>
+          <p>Use width/height attributes for layout stability and prevent content layout shift.</p>
+        </div>
+
+        <div class="practice-card">
+          <div class="practice-icon">🖼️</div>
+          <h4>Choose Right Format</h4>
+          <p>JPEG for photos, PNG for graphics, SVG for icons, WebP for modern browsers.</p>
+        </div>
+
+        <div class="practice-card">
+          <div class="practice-icon">📱</div>
+          <h4>Responsive Images</h4>
+          <p>Use srcset and sizes attributes for different screen sizes and resolutions.</p>
+        </div>
+
+        <div class="practice-card">
+          <div class="practice-icon">🎯</div>
+          <h4>Semantic Use</h4>
+          <p>Use images for content, not for layout. Use CSS for decorative elements.</p>
+        </div>
+      </div>
+
+      <div class="responsive-demo">
+        <h3>Responsive Images Example:</h3>
+        <div class="code-example">
+          &lt;img src="image-400.jpg"<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;srcset="image-400.jpg 400w,<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;image-800.jpg 800w,<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;image-1200.jpg 1200w"<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sizes="(max-width: 600px) 400px,<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(max-width: 1200px) 800px,<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1200px"<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;alt="Responsive image example"&gt;
+        </div>
+        
+        <div class="concept-explanation">
+          <ul>
+            <li><strong>srcset:</strong> Provides multiple image sources with their widths</li>
+            <li><strong>sizes:</strong> Defines how much space the image will take at different breakpoints</li>
+            <li><strong>Browser:</strong> Automatically chooses the best image based on device and screen size</li>
+            <li><strong>Benefits:</strong> Faster loading, better user experience, reduced data usage</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="accessibility-checklist">
+        <h3>Accessibility Checklist:</h3>
+        <div class="features-grid">
+          <div class="feature-item">
+            <div class="feature-text">
+              <h4>Meaningful Alt Text</h4>
+              <p>Describe the content and function of the image</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-text">
+              <h4>Empty Alt for Decorative</h4>
+              <p>Use alt="" for images that don't convey meaning</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-text">
+              <h4>Color Contrast</h4>
+              <p>Ensure text overlays have sufficient contrast</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-text">
+              <h4>No Text in Images</h4>
+              <p>Avoid putting important text in images</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== RECAP & NEXT STEPS ===== -->
+  <section class="slide final-slide" data-slide="8">
+    <div class="slide-background">
+      <div class="bg-final"></div>
+    </div>
+
+    <div class="slide-content">
+      <div class="completion-animation">
+        <div class="confetti-container"></div>
+        <div class="trophy">COMPLETE</div>
+        <h2 class="completion-title">Images Mastered!</h2>
+        <p class="completion-subtitle">You've Learned HTML Images</p>
+      </div>
+
+      <div class="recap-section">
+        <h3>What We Covered in Part 8:</h3>
+        <div class="recap-grid">
+          <div class="recap-item">
+            <div class="recap-icon">🖼️</div>
+            <h4>&lt;img&gt; Tag</h4>
+            <p>Image embedding element</p>
+          </div>
+          <div class="recap-item">
+            <div class="recap-icon">📍</div>
+            <h4>src Attribute</h4>
+            <p>Image source path</p>
+          </div>
+          <div class="recap-item">
+            <div class="recap-icon">📝</div>
+            <h4>alt Attribute</h4>
+            <p>Accessibility text</p>
+          </div>
+          <div class="recap-item">
+            <div class="recap-icon">📐</div>
+            <h4>Dimensions</h4>
+            <p>Width and height attributes</p>
+          </div>
+          <div class="recap-item">
+            <div class="recap-icon">🎯</div>
+            <h4>Alignment</h4>
+            <p>Positioning with text</p>
+          </div>
+          <div class="recap-item">
+            <div class="recap-icon">🎨</div>
+            <h4>Styling</h4>
+            <p>Borders and CSS effects</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="practice-section">
+        <h3>Practice Exercise:</h3>
+        <div class="exercise-card">
+          <h4>Create an Image Gallery</h4>
+          <p>Build a responsive image gallery with:</p>
+          <ul>
+            <li>Multiple images with proper alt text</li>
+            <li>Different alignment styles (left, right, center)</li>
+            <li>Various border styles and effects</li>
+            <li>Responsive design that works on mobile</li>
+            <li>Hover effects and transitions</li>
+            <li>Accessible markup for screen readers</li>
+          </ul>
+          <button class="exercise-btn">Start Building</button>
+        </div>
+      </div>
+
+      <div class="key-takeaways">
+        <h3>Key Takeaways:</h3>
+        <div class="features-grid">
+          <div class="feature-item">
+            <div class="feature-text">
+              <h4>Accessibility First</h4>
+              <p>Always include meaningful alt text</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-text">
+              <h4>Performance Matters</h4>
+              <p>Optimize images for fast loading</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-text">
+              <h4>Responsive Design</h4>
+              <p>Ensure images work on all devices</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-text">
+              <h4>Semantic Usage</h4>
+              <p>Use images for content, CSS for decoration</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cta-section">
+        <button class="cta-button" id="nextVideo">
+          <span><a href="youtube9.html"> Continueto Part 9: HTML Links & Navigation</a></span>
+          <i class="fas fa-arrow-right"></i>
+        </button>
+        <p class="cta-note">Next: Learn about creating hyperlinks, anchor tags, and website navigation</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PRESENTER NOTES ===== -->
+  <div class="presenter-notes" id="presenterNotes">
+    <div class="notes-header">
+      <h4>Presenter Notes - Video 8</h4>
+      <button class="notes-toggle" id="toggleNotes">
+        <i class="fas fa-chevron-up"></i>
+      </button>
+    </div>
+    <div class="notes-content">
+      <div class="note" data-slide="1">
+        <strong>Intro Slide:</strong> Emphasize that images make websites engaging and visual. Proper image implementation is crucial for performance and accessibility.
+      </div>
+      <div class="note" data-slide="2">
+        <strong>IMG Tag Overview:</strong> Demonstrate the basic img tag structure. Show what happens when src or alt attributes are missing.
+      </div>
+      <div class="note" data-slide="3">
+        <strong>Image Attributes:</strong> Show practical examples of each attribute. Emphasize the importance of alt text for accessibility.
+      </div>
+      <div class="note" data-slide="4">
+        <strong>Interactive Builder:</strong> Let students experiment with different image configurations. Show how attributes affect appearance and behavior.
+      </div>
+      <div class="note" data-slide="5">
+        <strong>Image Alignment:</strong> Demonstrate different alignment techniques. Show how float, flexbox, and grid work with images.
+      </div>
+      <div class="note" data-slide="6">
+        <strong>Styling & Borders:</strong> Show various CSS effects and borders. Demonstrate how to create visually appealing images.
+      </div>
+      <div class="note" data-slide="7">
+        <strong>Best Practices:</strong> Emphasize accessibility and performance. Show responsive image techniques and optimization tips.
+      </div>
+      <div class="note" data-slide="8">
+        <strong>Recap:</strong> Summarize key image concepts. Assign the gallery exercise. Preview links and navigation for next video.
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== MOVING SOCIAL BAR ===== -->
+  <div class="social-ticker">
+    <div class="ticker-content">
+      <span class="ticker-item">🎓 HTML Images - DevVoltz Academy</span>
+      <span class="ticker-item">🌐 Website: www.devvoltz.com</span>
+      <span class="ticker-item">📱 Telegram: @devvoltz</span>
+      <span class="ticker-item">📸 Instagram: @devvoltz</span>
+      <span class="ticker-item">👥 Facebook: facebook.com/devvoltz</span>
+      <span class="ticker-item">💻 Next: HTML Links & Navigation</span>
+    </div>
+  </div>
+
+  <script src="js/script.js"></script>
+ <script>
+    // Ultimate Presentation Controller
+class UltimatePresentation {
+    constructor() {
+        this.currentSlide = 1;
+        this.totalSlides = 8;
+        this.isLaserActive = false;
+        this.isRecording = true;
+        this.isNotesVisible = false;
+        this.animationDelays = new Map();
+        
+        this.init();
+    }
+
+    init() {
+        this.setupSlides();
+        this.setupControls();
+        this.setupLaserPointer();
+        this.setupAnimations();
+        this.setupDemo();
+        this.setupQuiz();
+        this.setupParticles();
+        this.startRecordingIndicator();
+        
+        // Auto-advance for demo purposes (remove in production)
+       // this.setupAutoAdvance();
+    }
+
+    setupSlides() {
+        this.slides = document.querySelectorAll('.slide');
+        this.totalSlides = this.slides.length;
+        this.showSlide(1);
+        
+        // Update slide counter
+        this.updateSlideCounter();
+    }
+
+    showSlide(slideNumber) {
+        // Hide all slides
+        this.slides.forEach(slide => {
+            slide.classList.remove('active');
+        });
+        
+        // Show current slide
+        const currentSlide = document.querySelector(`[data-slide="${slideNumber}"]`);
+        if (currentSlide) {
+            currentSlide.classList.add('active');
+            this.currentSlide = slideNumber;
+            
+            // Update progress
+            this.updateProgress();
+            this.updateSlideCounter();
+            this.updatePresenterNotes();
+            
+            // Trigger animations
+            this.triggerSlideAnimations(currentSlide);
+        }
+    }
+
+    nextSlide() {
+        if (this.currentSlide < this.totalSlides) {
+            this.showSlide(this.currentSlide + 1);
+        }
+    }
+
+    prevSlide() {
+        if (this.currentSlide > 1) {
+            this.showSlide(this.currentSlide - 1);
+        }
+    }
+
+    updateProgress() {
+        const progress = (this.currentSlide / this.totalSlides) * 100;
+        const progressBar = document.getElementById('progressBar');
+        if (progressBar) {
+            progressBar.style.width = `${progress}%`;
+        }
+        
+        const slideProgress = (this.currentSlide / this.totalSlides) * 100;
+        const slideProgressBar = document.querySelector('.slide-progress-bar');
+        if (slideProgressBar) {
+            slideProgressBar.style.width = `${slideProgress}%`;
+        }
+    }
+
+    updateSlideCounter() {
+        const slideCounter = document.getElementById('slideCounter');
+        if (slideCounter) {
+            slideCounter.textContent = `${this.currentSlide}/${this.totalSlides}`;
+        }
+        
+        const currentSlideElem = document.getElementById('currentSlide');
+        const totalSlidesElem = document.getElementById('totalSlides');
+        
+        if (currentSlideElem) currentSlideElem.textContent = this.currentSlide;
+        if (totalSlidesElem) totalSlidesElem.textContent = this.totalSlides;
+    }
+
+    setupControls() {
+        // Safe element selection with null checks
+        const elements = {
+            slideNext: document.getElementById('slideNext'),
+            slidePrev: document.getElementById('slidePrev'),
+            startCourse: document.getElementById('startCourse'),
+            nextChapter: document.getElementById('nextChapter'),
+            toggleTheme: document.getElementById('toggleTheme'),
+            toggleLaser: document.getElementById('toggleLaser'),
+            toggleGrid: document.getElementById('toggleGrid'),
+            toggleNotes: document.getElementById('toggleNotes')
+        };
+
+        // Add event listeners only if elements exist
+        if (elements.slideNext) {
+            elements.slideNext.addEventListener('click', () => this.nextSlide());
+        }
+        
+        if (elements.slidePrev) {
+            elements.slidePrev.addEventListener('click', () => this.prevSlide());
+        }
+
+        // Keyboard navigation (always available)
+        document.addEventListener('keydown', (e) => {
+            switch(e.key) {
+                case 'ArrowRight':
+                case ' ':
+                    e.preventDefault();
+                    this.nextSlide();
+                    break;
+                case 'ArrowLeft':
+                    e.preventDefault();
+                    this.prevSlide();
+                    break;
+                case 'l':
+                case 'L':
+                    e.preventDefault();
+                    this.toggleLaser();
+                    break;
+                case 't':
+                case 'T':
+                    e.preventDefault();
+                    this.toggleTheme();
+                    break;
+                case 'g':
+                case 'G':
+                    e.preventDefault();
+                    this.toggleGrid();
+                    break;
+                case 'n':
+                case 'N':
+                    e.preventDefault();
+                    this.toggleNotes();
+                    break;
+            }
+        });
+
+        // Optional buttons with null checks
+        if (elements.startCourse) {
+            elements.startCourse.addEventListener('click', () => {
+                this.nextSlide();
+            });
+        }
+
+        if (elements.nextChapter) {
+            elements.nextChapter.addEventListener('click', () => {
+                alert('Starting CSS Fundamentals! 🎨');
+            });
+        }
+
+        if (elements.toggleTheme) {
+            elements.toggleTheme.addEventListener('click', () => this.toggleTheme());
+        }
+        
+        if (elements.toggleLaser) {
+            elements.toggleLaser.addEventListener('click', () => this.toggleLaser());
+        }
+        
+        if (elements.toggleGrid) {
+            elements.toggleGrid.addEventListener('click', () => this.toggleGrid());
+        }
+        
+        if (elements.toggleNotes) {
+            elements.toggleNotes.addEventListener('click', () => this.toggleNotes());
+        }
+    }
+
+    setupLaserPointer() {
+        const laser = document.getElementById('laserPointer');
+        if (!laser) return;
+        
+        // Only create logo once if it doesn't exist
+        if (!laser.querySelector('img')) {
+            const logoImg = document.createElement('img');
+            logoImg.src = 'logodev2.jpg'; // Your logo path here
+            logoImg.alt = 'DevVoltz Laser Pointer';
+            laser.appendChild(logoImg);
+            laser.classList.add('logo-pointer');
+        }
+        
+        document.addEventListener('mousemove', (e) => {
+            if (this.isLaserActive && laser) {
+                laser.style.left = `${e.clientX - 15}px`; // Centered for 30px width
+                laser.style.top = `${e.clientY - 15}px`;
+                
+                // Create branded trail effect
+                if (Math.random() > 0.8) {
+                    this.createBrandedTrail(e.clientX, e.clientY);
+                }
+            }
+        });
+    }
+
+    toggleLaser() {
+        this.isLaserActive = !this.isLaserActive;
+        const laser = document.getElementById('laserPointer');
+        const laserBtn = document.getElementById('toggleLaser');
+        
+        if (this.isLaserActive) {
+            if (laser) laser.classList.add('active');
+            if (laserBtn) laserBtn.classList.add('active');
+            document.body.style.cursor = 'none'; // Hide default cursor
+            
+            // Add activation effect
+            this.createActivationEffect();
+        } else {
+            if (laser) laser.classList.remove('active');
+            if (laserBtn) laserBtn.classList.remove('active');
+            document.body.style.cursor = 'default'; // Restore cursor
+        }
+    }
+
+    createBrandedTrail(x, y) {
+        const trail = document.createElement('div');
+        trail.className = 'laser-trail';
+        trail.style.left = `${x - 3}px`;
+        trail.style.top = `${y - 3}px`;
+        
+        // Add subtle animation
+        trail.style.background = `var(--gradient-primary)`;
+        
+        document.body.appendChild(trail);
+        
+        setTimeout(() => {
+            trail.remove();
+        }, 1000);
+    }
+
+    createActivationEffect() {
+        const laser = document.getElementById('laserPointer');
+        if (!laser) return;
+        
+        laser.style.transform = 'scale(0)';
+        
+        setTimeout(() => {
+            laser.style.transition = 'transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)';
+            laser.style.transform = 'scale(1)';
+        }, 10);
+        
+        // Create ripple effect
+        this.createRippleEffect(laser);
+    }
+
+    createRippleEffect(element) {
+        const rect = element.getBoundingClientRect();
+        const x = rect.left + rect.width / 2;
+        const y = rect.top + rect.height / 2;
+        
+        for (let i = 0; i < 3; i++) {
+            setTimeout(() => {
+                const ripple = document.createElement('div');
+                ripple.style.position = 'fixed';
+                ripple.style.left = `${x}px`;
+                ripple.style.top = `${y}px`;
+                ripple.style.width = '4px';
+                ripple.style.height = '4px';
+                ripple.style.background = 'var(--primary)';
+                ripple.style.borderRadius = '50%';
+                ripple.style.pointerEvents = 'none';
+                ripple.style.zIndex = '9999';
+                ripple.style.transform = 'translate(-50%, -50%)';
+                
+                document.body.appendChild(ripple);
+                
+                // Animate ripple
+                const duration = 800;
+                const startTime = Date.now();
+                
+                const animateRipple = () => {
+                    const elapsed = Date.now() - startTime;
+                    const progress = elapsed / duration;
+                    
+                    if (progress < 1) {
+                        const scale = 1 + progress * 20;
+                        const opacity = 1 - progress;
+                        
+                        ripple.style.transform = `translate(-50%, -50%) scale(${scale})`;
+                        ripple.style.opacity = opacity.toString();
+                        
+                        requestAnimationFrame(animateRipple);
+                    } else {
+                        ripple.remove();
+                    }
+                };
+                
+                animateRipple();
+            }, i * 200);
+        }
+    }
+
+    toggleTheme() {
+        document.body.classList.toggle('light-theme');
+        const themeBtn = document.getElementById('toggleTheme');
+        if (!themeBtn) return;
+        
+        const icon = themeBtn.querySelector('i');
+        if (!icon) return;
+        
+        if (document.body.classList.contains('light-theme')) {
+            icon.classList.remove('fa-moon');
+            icon.classList.add('fa-sun');
+        } else {
+            icon.classList.remove('fa-sun');
+            icon.classList.add('fa-moon');
+        }
+    }
+
+    toggleGrid() {
+        document.body.classList.toggle('show-grid');
+        const gridBtn = document.getElementById('toggleGrid');
+        if (gridBtn) {
+            gridBtn.classList.toggle('active');
+        }
+    }
+
+    toggleNotes() {
+        this.isNotesVisible = !this.isNotesVisible;
+        const notes = document.getElementById('presenterNotes');
+        const toggleBtn = document.getElementById('toggleNotes');
+        
+        if (notes) {
+            if (this.isNotesVisible) {
+                notes.classList.add('show');
+            } else {
+                notes.classList.remove('show');
+            }
+        }
+        
+        if (toggleBtn) {
+            const icon = toggleBtn.querySelector('i');
+            if (icon) {
+                if (this.isNotesVisible) {
+                    icon.classList.remove('fa-chevron-up');
+                    icon.classList.add('fa-chevron-down');
+                } else {
+                    icon.classList.remove('fa-chevron-down');
+                    icon.classList.add('fa-chevron-up');
+                }
+            }
+        }
+    }
+
+    updatePresenterNotes() {
+        const notes = document.querySelectorAll('.note');
+        notes.forEach(note => note.classList.remove('active'));
+        
+        const currentNote = document.querySelector(`.note[data-slide="${this.currentSlide}"]`);
+        if (currentNote) {
+            currentNote.classList.add('active');
+        }
+    }
+
+    setupAnimations() {
+        // Intersection Observer for scroll animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const delay = entry.target.getAttribute('data-delay') || 0;
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                    }, delay * 1000);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        // Observe all animatable elements
+        document.querySelectorAll('.curriculum-item, .concept-card').forEach(el => {
+            observer.observe(el);
+        });
+    }
+
+    setupDemo() {
+        const runBtn = document.getElementById('runCode');
+        const resetBtn = document.getElementById('resetCode');
+        const livePreview = document.getElementById('livePreview');
+
+        if (runBtn && livePreview) {
+            runBtn.addEventListener('click', () => {
+                // Simulate code execution
+                livePreview.innerHTML = `
+                    <div style="padding: 2rem; font-family: system-ui;">
+                        <header style="background: #6366f1; color: white; padding: 2rem; text-align: center;">
+                            <h1 style="margin: 0;">Welcome</h1>
+                        </header>
+                        <main style="padding: 2rem;">
+                            <p style="font-size: 1.2rem;">Building amazing websites!</p>
+                        </main>
+                    </div>
+                `;
+                
+                // Add success animation
+                runBtn.innerHTML = '<i class="fas fa-check"></i> Executed';
+                runBtn.style.background = 'var(--gradient-accent)';
+                
+                setTimeout(() => {
+                    runBtn.innerHTML = '<i class="fas fa-play"></i> Run Code';
+                    runBtn.style.background = 'var(--gradient-primary)';
+                }, 2000);
+            });
+        }
+
+        if (resetBtn && livePreview) {
+            resetBtn.addEventListener('click', () => {
+                livePreview.innerHTML = '';
+            });
+        }
+    }
+
+    setupQuiz() {
+        const options = document.querySelectorAll('.quiz-option');
+        const feedback = document.getElementById('quizFeedback');
+
+        options.forEach(option => {
+            option.addEventListener('click', () => {
+                const isCorrect = option.getAttribute('data-correct') === 'true';
+                
+                // Show feedback
+                if (feedback) {
+                    feedback.classList.add('show');
+                }
+                
+                // Mark options
+                options.forEach(opt => {
+                    if (opt.getAttribute('data-correct') === 'true') {
+                        opt.classList.add('correct');
+                    } else {
+                        opt.classList.add('incorrect');
+                    }
+                });
+                
+                // Disable further clicks
+                options.forEach(opt => {
+                    opt.style.pointerEvents = 'none';
+                });
+            });
+        });
+    }
+
+    setupParticles() {
+        const container = document.getElementById('particles');
+        if (!container) return;
+        
+        const particleCount = 50;
+
+        for (let i = 0; i < particleCount; i++) {
+            this.createParticle(container);
+        }
+    }
+
+    createParticle(container) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        
+        // Random properties
+        const size = Math.random() * 4 + 2;
+        const left = Math.random() * 100;
+        const delay = Math.random() * 20;
+        const duration = Math.random() * 10 + 10;
+        
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        particle.style.left = `${left}%`;
+        particle.style.animationDelay = `${delay}s`;
+        particle.style.animationDuration = `${duration}s`;
+        particle.style.background = this.getRandomColor();
+        
+        container.appendChild(particle);
+        
+        // Remove and recreate particle after animation
+        setTimeout(() => {
+            particle.remove();
+            this.createParticle(container);
+        }, duration * 1000);
+    }
+
+    getRandomColor() {
+        const colors = [
+            '#6366f1', '#8b5cf6', '#f59e0b', '#10b981', '#ef4444'
+        ];
+        return colors[Math.floor(Math.random() * colors.length)];
+    }
+
+    triggerSlideAnimations(slide) {
+        // Reset animations
+        const animatables = slide.querySelectorAll('.curriculum-item, .concept-card');
+        animatables.forEach(el => {
+            el.classList.remove('visible');
+        });
+
+        // Trigger with delay
+        animatables.forEach((el, index) => {
+            setTimeout(() => {
+                el.classList.add('visible');
+            }, index * 200);
+        });
+
+        // Special animations for specific slides
+        switch(this.currentSlide) {
+            case 1:
+                this.animateIntro();
+                break;
+            case 8:
+                this.animateConfetti();
+                break;
+        }
+    }
+
+    animateIntro() {
+        // Title sequence already handled by CSS
+        console.log('Intro animations activated');
+    }
+
+    animateConfetti() {
+        const container = document.querySelector('.confetti-container');
+        if (!container) return;
+        
+        const confettiCount = 100;
+
+        for (let i = 0; i < confettiCount; i++) {
+            setTimeout(() => {
+                this.createConfetti(container);
+            }, i * 30);
+        }
+    }
+
+    createConfetti(container) {
+        const confetti = document.createElement('div');
+        confetti.className = 'confetti';
+        
+        const colors = ['#6366f1', '#8b5cf6', '#f59e0b', '#10b981', '#ef4444'];
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        
+        confetti.style.background = color;
+        confetti.style.left = `${Math.random() * 100}%`;
+        confetti.style.animationDuration = `${Math.random() * 3 + 2}s`;
+        
+        container.appendChild(confetti);
+        
+        setTimeout(() => {
+            confetti.remove();
+        }, 5000);
+    }
+
+    startRecordingIndicator() {
+        // Simulate recording state
+        setInterval(() => {
+            this.isRecording = !this.isRecording;
+            const indicator = document.getElementById('recordingIndicator');
+            
+            if (indicator) {
+                if (this.isRecording) {
+                    indicator.style.display = 'flex';
+                } else {
+                    indicator.style.display = 'none';
+                }
+            }
+        }, 5000);
+    }
+
+    setupAutoAdvance() {
+        // Auto-advance every 30 seconds for demo
+        setInterval(() => {
+            if (this.currentSlide < this.totalSlides) {
+                this.nextSlide();
+            }
+        }, 30000);
+    }
+}
+
+// Initialize the presentation when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    new UltimatePresentation();
+});
+
+// Additional utility functions
+function createParticleEffect(x, y, color = '#6366f1') {
+    for (let i = 0; i < 10; i++) {
+        setTimeout(() => {
+            const particle = document.createElement('div');
+            particle.style.position = 'fixed';
+            particle.style.left = `${x}px`;
+            particle.style.top = `${y}px`;
+            particle.style.width = '4px';
+            particle.style.height = '4px';
+            particle.style.background = color;
+            particle.style.borderRadius = '50%';
+            particle.style.pointerEvents = 'none';
+            particle.style.zIndex = '10000';
+            
+            document.body.appendChild(particle);
+            
+            const angle = Math.random() * Math.PI * 2;
+            const velocity = 2 + Math.random() * 2;
+            const vx = Math.cos(angle) * velocity;
+            const vy = Math.sin(angle) * velocity;
+            
+            let opacity = 1;
+            const animate = () => {
+                opacity -= 0.02;
+                particle.style.opacity = opacity;
+                particle.style.transform = `translate(${vx * (1 - opacity) * 50}px, ${vy * (1 - opacity) * 50}px)`;
+                
+                if (opacity > 0) {
+                    requestAnimationFrame(animate);
+                } else {
+                    particle.remove();
+                }
+            };
+            
+            animate();
+        }, i * 100);
+    }
+}
+
+// Add click effects for interactive elements
+document.addEventListener('click', (e) => {
+    if (e.target.classList.contains('interactive')) {
+        createParticleEffect(e.clientX, e.clientY);
+    }
+});
+
+// Export for global access
+window.UltimatePresentation = UltimatePresentation;
+
+// --- FIX: Prevent 'AbortError' play/pause warnings in Chrome/Edge ---
+(function() {
+    const originalPlay = HTMLMediaElement.prototype.play;
+    HTMLMediaElement.prototype.play = function(...args) {
+        const playPromise = originalPlay.apply(this, args);
+        if (playPromise !== undefined && typeof playPromise.catch === "function") {
+            playPromise.catch(err => {
+                if (err.name !== "AbortError") {
+                    console.warn("Media play blocked:", err);
+                }
+                // Silently ignore AbortError (normal browser behavior)
+            });
+        }
+        return playPromise;
+    };
+})();
+
+
+// Fullscreen Functionality
+const fullscreenBtn = document.getElementById('toggleFullscreen');
+const fullscreenHint = document.getElementById('fullscreenHint');
+
+// Show hint on first visit
+setTimeout(() => {
+    if (!localStorage.getItem('fullscreenHintShown')) {
+        fullscreenHint.classList.add('show');
+        setTimeout(() => {
+            fullscreenHint.classList.remove('show');
+            localStorage.setItem('fullscreenHintShown', 'true');
+        }, 3000);
+    }
+}, 2000);
+
+// Fullscreen toggle
+fullscreenBtn.addEventListener('click', toggleFullscreen);
+
+function toggleFullscreen() {
+    if (!document.fullscreenElement) {
+        enterFullscreen();
+    } else {
+        exitFullscreen();
+    }
+}
+
+function enterFullscreen() {
+    const elem = document.documentElement;
+    
+    if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+    } else if (elem.webkitRequestFullscreen) { /* Safari */
+        elem.webkitRequestFullscreen();
+    } else if (elem.msRequestFullscreen) { /* IE11 */
+        elem.msRequestFullscreen();
+    }
+}
+
+function exitFullscreen() {
+    if (document.exitFullscreen) {
+        document.exitFullscreen();
+    } else if (document.webkitExitFullscreen) { /* Safari */
+        document.webkitExitFullscreen();
+    } else if (document.msExitFullscreen) { /* IE11 */
+        document.msExitFullscreen();
+    }
+}
+
+// Update fullscreen button icon and title
+function updateFullscreenUI() {
+    const isFullscreen = document.fullscreenElement;
+    const icon = fullscreenBtn.querySelector('i');
+    
+    if (isFullscreen) {
+        icon.className = 'fas fa-compress';
+        fullscreenBtn.title = 'Exit Fullscreen (F)';
+        document.body.classList.add('fullscreen-active');
+    } else {
+        icon.className = 'fas fa-expand';
+        fullscreenBtn.title = 'Fullscreen (F)';
+        document.body.classList.remove('fullscreen-active');
+    }
+}
+
+// Listen for fullscreen changes
+document.addEventListener('fullscreenchange', updateFullscreenUI);
+document.addEventListener('webkitfullscreenchange', updateFullscreenUI);
+document.addEventListener('msfullscreenchange', updateFullscreenUI);
+
+// Keyboard shortcut for fullscreen (F key)
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'f' || e.key === 'F') {
+        toggleFullscreen();
+        e.preventDefault();
+    }
+    
+    // ESC key also exits fullscreen
+    if (e.key === 'Escape' && document.fullscreenElement) {
+        exitFullscreen();
+    }
+});
+
+// Mobile detection and enhancements
+function isMobileDevice() {
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+}
+
+if (isMobileDevice()) {
+    // Add mobile-specific fullscreen hint
+    document.addEventListener('touchstart', function() {
+        fullscreenHint.textContent = 'Use browser menu to enter fullscreen';
+        fullscreenHint.classList.add('show');
+        setTimeout(() => fullscreenHint.classList.remove('show'), 3000);
+    }, { once: true });
+}
+
+console.log('Fullscreen functionality loaded. Press F to toggle fullscreen.');
+// DOM Manipulation Demo Script
+document.addEventListener('DOMContentLoaded', function() {
+    const demoResult = document.getElementById('demoResult');
+    const changeTextBtn = document.getElementById('changeText');
+    const addElementBtn = document.getElementById('addElement');
+    const changeColorBtn = document.getElementById('changeColor');
+    const removeElementBtn = document.getElementById('removeElement');
+    
+    // Add null checks for all elements
+    if (!demoResult || !changeTextBtn || !addElementBtn || !changeColorBtn || !removeElementBtn) {
+        console.log('DOM Manipulation demo elements not found');
+        return;
+    }
+    
+    let elementCount = 0;
+    
+    changeTextBtn.addEventListener('click', function() {
+        demoResult.innerHTML = '<p>Text changed successfully using <code>innerHTML</code>!</p>';
+    });
+    
+    addElementBtn.addEventListener('click', function() {
+        elementCount++;
+        const newElement = document.createElement('div');
+        newElement.textContent = `New element #${elementCount} added dynamically`;
+        newElement.style.padding = '0.5rem';
+        newElement.style.margin = '0.5rem 0';
+        newElement.style.backgroundColor = 'rgba(74, 144, 226, 0.2)';
+        newElement.style.borderRadius = '4px';
+        demoResult.appendChild(newElement);
+    });
+    
+    changeColorBtn.addEventListener('click', function() {
+        const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#96ceb4', '#feca57'];
+        const randomColor = colors[Math.floor(Math.random() * colors.length)];
+        demoResult.style.backgroundColor = randomColor;
+    });
+    
+    removeElementBtn.addEventListener('click', function() {
+        if (demoResult.children.length > 0) {
+            demoResult.removeChild(demoResult.lastChild);
+        }
+    });
+});
+</script>
+</body>
+</html>
