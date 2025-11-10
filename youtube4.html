@@ -2472,10 +2472,10 @@ body {
 </head>
 <body>
 
+ <!-- Fullscreen Hint -->
   <div class="fullscreen-hint" id="fullscreenHint">Press F for Fullscreen</div>
+
   <!-- Presentation Controls -->
-
-
   <div class="presentation-controls">
     <div class="control-group">
       <button class="control-btn" id="slidePrev" title="Previous Slide (←)">
@@ -2501,7 +2501,6 @@ body {
       </button>
     </div>
   </div>
-
   <!-- Laser Pointer -->
   <div class="laser-pointer" id="laserPointer"></div>
 
@@ -3394,7 +3393,7 @@ class UltimatePresentation {
         this.startRecordingIndicator();
         
         // Auto-advance for demo purposes (remove in production)
-       // this.setupAutoAdvance();
+       
     }
 
     setupSlides() {
@@ -3477,7 +3476,8 @@ class UltimatePresentation {
             toggleTheme: document.getElementById('toggleTheme'),
             toggleLaser: document.getElementById('toggleLaser'),
             toggleGrid: document.getElementById('toggleGrid'),
-            toggleNotes: document.getElementById('toggleNotes')
+            toggleNotes: document.getElementById('toggleNotes'),
+            toggleFullscreen: document.getElementById('toggleFullscreen')
         };
 
         // Add event listeners only if elements exist
@@ -3521,6 +3521,11 @@ class UltimatePresentation {
                     e.preventDefault();
                     this.toggleNotes();
                     break;
+                case 'f':
+                case 'F':
+                    e.preventDefault();
+                    this.toggleFullscreen();
+                    break;
             }
         });
 
@@ -3551,6 +3556,10 @@ class UltimatePresentation {
         
         if (elements.toggleNotes) {
             elements.toggleNotes.addEventListener('click', () => this.toggleNotes());
+        }
+        
+        if (elements.toggleFullscreen) {
+            elements.toggleFullscreen.addEventListener('click', () => this.toggleFullscreen());
         }
     }
 
@@ -3726,6 +3735,52 @@ class UltimatePresentation {
                     icon.classList.add('fa-chevron-up');
                 }
             }
+        }
+    }
+
+    toggleFullscreen() {
+        if (!document.fullscreenElement) {
+            this.enterFullscreen();
+        } else {
+            this.exitFullscreen();
+        }
+    }
+
+    enterFullscreen() {
+        const elem = document.documentElement;
+        
+        if (elem.requestFullscreen) {
+            elem.requestFullscreen();
+        } else if (elem.webkitRequestFullscreen) { /* Safari */
+            elem.webkitRequestFullscreen();
+        } else if (elem.msRequestFullscreen) { /* IE11 */
+            elem.msRequestFullscreen();
+        }
+    }
+
+    exitFullscreen() {
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) { /* Safari */
+            document.webkitExitFullscreen();
+        } else if (document.msExitFullscreen) { /* IE11 */
+            document.msExitFullscreen();
+        }
+    }
+
+    updateFullscreenUI() {
+        const isFullscreen = document.fullscreenElement;
+        const fullscreenBtn = document.getElementById('toggleFullscreen');
+        const icon = fullscreenBtn?.querySelector('i');
+        
+        if (isFullscreen) {
+            if (icon) icon.className = 'fas fa-compress';
+            if (fullscreenBtn) fullscreenBtn.title = 'Exit Fullscreen (F)';
+            document.body.classList.add('fullscreen-active');
+        } else {
+            if (icon) icon.className = 'fas fa-expand';
+            if (fullscreenBtn) fullscreenBtn.title = 'Fullscreen (F)';
+            document.body.classList.remove('fullscreen-active');
         }
     }
 
@@ -3958,7 +4013,57 @@ class UltimatePresentation {
 
 // Initialize the presentation when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-    new UltimatePresentation();
+    const presentation = new UltimatePresentation();
+    
+    // Setup fullscreen functionality
+    const fullscreenBtn = document.getElementById('toggleFullscreen');
+    const fullscreenHint = document.getElementById('fullscreenHint');
+
+    // Show hint on first visit
+    setTimeout(() => {
+        if (!localStorage.getItem('fullscreenHintShown')) {
+            fullscreenHint.classList.add('show');
+            setTimeout(() => {
+                fullscreenHint.classList.remove('show');
+                localStorage.setItem('fullscreenHintShown', 'true');
+            }, 3000);
+        }
+    }, 2000);
+
+    // Fullscreen toggle
+    if (fullscreenBtn) {
+        fullscreenBtn.addEventListener('click', () => presentation.toggleFullscreen());
+    }
+
+    // Update fullscreen button icon and title
+    function updateFullscreenUI() {
+        const isFullscreen = document.fullscreenElement;
+        const icon = fullscreenBtn?.querySelector('i');
+        
+        if (isFullscreen) {
+            if (icon) icon.className = 'fas fa-compress';
+            if (fullscreenBtn) fullscreenBtn.title = 'Exit Fullscreen (F)';
+            document.body.classList.add('fullscreen-active');
+        } else {
+            if (icon) icon.className = 'fas fa-expand';
+            if (fullscreenBtn) fullscreenBtn.title = 'Fullscreen (F)';
+            document.body.classList.remove('fullscreen-active');
+        }
+    }
+
+    // Listen for fullscreen changes
+    document.addEventListener('fullscreenchange', updateFullscreenUI);
+    document.addEventListener('webkitfullscreenchange', updateFullscreenUI);
+    document.addEventListener('msfullscreenchange', updateFullscreenUI);
+
+    // ESC key also exits fullscreen
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && document.fullscreenElement) {
+            presentation.exitFullscreen();
+        }
+    });
+
+    console.log('Fullscreen functionality loaded. Press F to toggle fullscreen.');
 });
 
 // Additional utility functions
@@ -4028,49 +4133,6 @@ window.UltimatePresentation = UltimatePresentation;
     };
 })();
 
-// DOM Manipulation Demo Script
-document.addEventListener('DOMContentLoaded', function() {
-    const demoResult = document.getElementById('demoResult');
-    const changeTextBtn = document.getElementById('changeText');
-    const addElementBtn = document.getElementById('addElement');
-    const changeColorBtn = document.getElementById('changeColor');
-    const removeElementBtn = document.getElementById('removeElement');
-    
-    // Add null checks for all elements
-    if (!demoResult || !changeTextBtn || !addElementBtn || !changeColorBtn || !removeElementBtn) {
-        console.log('DOM Manipulation demo elements not found');
-        return;
-    }
-    
-    let elementCount = 0;
-    
-    changeTextBtn.addEventListener('click', function() {
-        demoResult.innerHTML = '<p>Text changed successfully using <code>innerHTML</code>!</p>';
-    });
-    
-    addElementBtn.addEventListener('click', function() {
-        elementCount++;
-        const newElement = document.createElement('div');
-        newElement.textContent = `New element #${elementCount} added dynamically`;
-        newElement.style.padding = '0.5rem';
-        newElement.style.margin = '0.5rem 0';
-        newElement.style.backgroundColor = 'rgba(74, 144, 226, 0.2)';
-        newElement.style.borderRadius = '4px';
-        demoResult.appendChild(newElement);
-    });
-    
-    changeColorBtn.addEventListener('click', function() {
-        const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#96ceb4', '#feca57'];
-        const randomColor = colors[Math.floor(Math.random() * colors.length)];
-        demoResult.style.backgroundColor = randomColor;
-    });
-    
-    removeElementBtn.addEventListener('click', function() {
-        if (demoResult.children.length > 0) {
-            demoResult.removeChild(demoResult.lastChild);
-        }
-    });
-});
 </script>
 
 </body>
